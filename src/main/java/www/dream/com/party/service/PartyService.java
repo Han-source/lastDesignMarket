@@ -61,7 +61,12 @@ public class PartyService implements UserDetailsService { // 1. 순서가 의미
 	public void changeUserPhoneNum(Member newBie, ContactPoint cp) {
 		partyMapper.changeUserPhoneNum(newBie, cp);
 	}
-
+	
+	// 포인트 적립 처리
+	public  void EarnPoints(int points,  String userId) {
+		partyMapper.EarnPoints(points, userId);
+	}
+	
 	
 	// 사용자 회원 탈퇴
 	public void deleteId(Party party) {

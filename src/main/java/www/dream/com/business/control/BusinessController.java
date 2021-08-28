@@ -122,22 +122,27 @@ public class BusinessController {
 		model.addAttribute("info", businessService.findMyShippingInfo(productId));
 	}
 
-	// 내가 올린 상품들 목록 전체 조회
-	@GetMapping(value = { "myProductUploaded", "myProductSelled" }) // LCRUD 에서 L:list
-	public void myProductUploaded(@ModelAttribute("pagination") Criteria userCriteria,
-			@AuthenticationPrincipal Principal principal, Model model) {
-		Party curUser = getPricipalUser(principal);
-		if (curUser != null) {
-			model.addAttribute("userId", curUser.getUserId());
-			model.addAttribute("descrim", curUser.getDescrim());
-		}
-		model.addAttribute("boardId", 4);
-		model.addAttribute("boardName", boardService.getBoard(4).getName());
-		model.addAttribute("boardList", boardService.getList());
-		model.addAttribute("page", userCriteria);
-		model.addAttribute("productUploaded", postService.getMyProductUploaded(4, curUser.getUserId(), userCriteria));
-		model.addAttribute("sellChart", businessService.selledChart(curUser.getUserId()));
-	}
+	 // 내가 올린 상품들 목록 전체 조회
+	   @GetMapping(value = { "myProductUploaded", "myProductSelled" }) // LCRUD 에서 L:list
+	   public void myProductUploaded(@ModelAttribute("pagination") Criteria userCriteria,
+	         @AuthenticationPrincipal Principal principal, Model model, String firstDate, String lastDate) {
+	      Party curUser = getPricipalUser(principal);
+	      if (curUser != null) {
+	         model.addAttribute("userId", curUser.getUserId());
+	         model.addAttribute("descrim", curUser.getDescrim());
+	      }
+	      model.addAttribute("boardId", 4);
+	      model.addAttribute("boardName", boardService.getBoard(4).getName());
+	      model.addAttribute("boardList", boardService.getList());
+	      model.addAttribute("page", userCriteria);
+	      model.addAttribute("childBoardList", boardService.getChildBoardList(4));
+	      model.addAttribute("productUploaded", postService.getMyProductUploaded(4, curUser.getUserId(), userCriteria));
+	      model.addAttribute("sellChart", businessService.selledChart(curUser.getUserId()));
+	      if (firstDate != null && lastDate != null) {
+	         model.addAttribute("mySelledDateChart",
+	               businessService.mySelledDateChart(curUser.getUserId(), firstDate, lastDate));
+	      }
+	   }
 
 	private Party getPricipalUser(Principal principal) {
 		Party curUser = null;
@@ -282,6 +287,8 @@ public class BusinessController {
 					businessService.findNegoPriceByBuyerWithProductId(productId, newProductCondition));
 			model.addAttribute("buyerId", newProductCondition.getBuyerId());
 			model.addAttribute("descrim", curUser.getDescrim());
+			
+			
 		}
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("post", replyService.findProductPurchaseRepresentById(productId, child));
@@ -290,7 +297,11 @@ public class BusinessController {
 		model.addAttribute("auctionParty", businessService.findAuctionPartyById(productId));
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("child", child);
-		model.addAttribute("loginPersonInfo", partyService.getContactListByUserId(curUser.getUserId()));
+		// contactInfo 정보 찾는 부분 
+		model.addAttribute("loginContactInfo", partyService.getContactListByUserId(curUser.getUserId()));
+		//이부분은 party에 관한 정보 찾는 부분
+		model.addAttribute("loginPartyInfo", partyService.findPartyByUserId(curUser.getUserId()));
+		
 	}
 
 	/* 경매 결제창 */
@@ -323,10 +334,20 @@ public class BusinessController {
 	}
 
 	@RequestMapping(value = "/purchase", method = RequestMethod.POST, produces = { "application/json" })
-	public @ResponseBody void purchase(@AuthenticationPrincipal Principal principal,
+	public @ResponseBody void purchase(@AuthenticationPrincipal Principal principal, 
 			@RequestBody ShippingInfoVO shippingInfoVO) {
-		businessService.purchaseProduct(shippingInfoVO);
-		businessService.selledProdut(shippingInfoVO.getProductId());
+		Party curUser = null;
+		if (principal != null) {
+			UsernamePasswordAuthenticationToken upat = (UsernamePasswordAuthenticationToken) principal;
+			CustomUser cu = (CustomUser) upat.getPrincipal();
+			curUser = cu.getCurUser();			
+			businessService.purchaseProduct(shippingInfoVO);
+			businessService.selledProdut(shippingInfoVO.getProductId());
+			partyService.EarnPoints(shippingInfoVO.getPoints(), curUser.getUserId());
+		}
+		
+		
+		
 	}
 
 	@GetMapping(value = "adminPermission") // LCRUD 에서 Create 부분

@@ -11,4 +11,5 @@ public class TradeVO {
 	private String buyerId;
 	private String tradeDate;
 	private int adminPermission;
+	private int points;
 }

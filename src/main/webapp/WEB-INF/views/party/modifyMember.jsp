@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../includes/header.jsp"%>
 <style>
 .divInline {
-	display: inline-block;
-	width: 20%;
-	height: 10%;
+   display: inline-block;
+   width: 20%;
+   height: 10%;
 }
 </style>
 <%@ include file="../includes/subMenu.jsp"%>
@@ -18,122 +18,124 @@
         </div>
         <hr style="border: 1px solid black;">
                 <div >
-					<div class="divInline" style="margin-right: 10%;"><label>이름</label></div>
-					<div class="divInline"><span class="spanLabel">${party[0].name}</span></div>
-					<div class="divInline">
-						<button class="btn btn-info" id="nameChange">개명시? 이름변경</button>
-					</div>
-				</div>
-				<hr>
-				  
+               <div class="divInline" style="margin-right: 10%;"><label>이름</label></div>
+               <div class="divInline" style="width: 40%;">
+                  <span class="spanLabel">${party[0].name}</span>
+               </div>
+               <div class="divInline">
+                  <button class="btn btn-info" id="nameChange">개명시? 이름변경</button>
+               </div>
+            </div>
+            <hr>
+              
                 <div id="PwdCheck" class="form-group">
-                    	<div class="divInline"  style="margin-right: 10%;"><label>비밀번호 변경</label></div>
-                    	<div class="divInline">
-	                        <input id="userPwdOrgin" name="userPwdOrigin" placeholder="비밀번호" type="password"><br>
-	                        <input id="userPwdCheck" name="userPwd" placeholder="비밀번호 재확인" type="password">
-	                        <p id="pwCheckMsg"></p>
+                       <div class="divInline"  style="margin-right: 10%;"><label>비밀번호 변경</label></div>
+                       <div class="divInline" style="width: 40%;">
+                           <input id="userPwdOrgin" style="width: 300px;" name="userPwdOrigin" placeholder="비밀번호" type="password"><br>
+                           <input id="userPwdCheck" style="width: 300px;" name="userPwd" placeholder="비밀번호 재확인" type="password">
+                           <p id="pwCheckMsg"></p>
                         </div>
                         <div class="divInline"><button class="btn btn-info" id="pwdChange">비밀번호 변경</button></div>
                 </div>
-    			<hr>
-    			
-				<div class="form-group">
-					<div class="divInline" style="margin-right: 10%;"><label>내 주소</label></div>
-					<div class="divInline">
-						<span class="spanLabel">
-							<span id = "originalAddr">${party[0].listContactPoint[0].info}</span>
-							<input type="text" id="postcode" placeholder="우편번호">
-							<input name="info" id="address"  placeholder="주소">
-							<input name="info" id="detailAddress" placeholder="상세주소">
-						</span>
-					</div>
-					
-					<div class="divInline">
-						<button class="btn btn-info" type="button" id="findPost" onclick="execPostcode();">우편번호 찾기</button><br>
-						<div class="divInline" style="width: 120px;">
-							<button class="btn btn-info" id="addrChange">주소지 변경</button>
-							<button class="btn btn-info" id="lastAddrChange">변경하기</button>
-						</div>
-						<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-					        <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer"
-					            style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()"
-					            alt="닫기 버튼">
-						</div>            
-				    </div>
-				</div>
-				<hr>
-				
-				<div class="form-group">
-					<div class="divInline" style="margin-right: 10%;"><label>휴대폰 번호</label></div>
-					<div class="divInline">
-						<span id="originalMobileNum" class="spanLabel">${party[0].listContactPoint[1].info}</span>
-						<input name="info" id="mobileNum" placeholder="핸드폰 번호를 입력하세요">
-					</div>
-					<div class="divInline">
-						<button class="btn btn-info" id="mobileNumChage">핸드폰 번호 변경</button>
-						<button class="btn btn-info" id="lastMobileNumChage">변경하기</button>
-					</div>
-				</div>
-				<hr>
-				
-				<div class="form-group">
-					<div class="divInline" style="margin-right: 10%;"><label>집 전화 번호</label></div>
-					<div class="divInline">
-						<span id="originalPhoneNum" class="spanLabel">${party[0].listContactPoint[2].info}</span>
-						<input name="info" id="PhoneNum" placeholder="집 전화 번호를 입력하세요">
-					</div>
-					<div class="divInline">
-						<button class="btn btn-info" id="phoneNumChage">집전화 번호 변경</button>
-						<button class="btn btn-info" id="lastPhoneNumChage">변경하기</button>
-					</div>
-				</div>
-				<hr>
-				
-			<form id="chageUserName" method="post" action="/party/modifyMember">	
-				<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
-			</form>
-			
-			<form id="chageUserPwd" method="post" action="/party/modifyMember">	
-				<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
-			</form>
+             <hr>
+             
+            <div class="form-group">
+               <div class="divInline" style="margin-right: 10%;"><label>내 주소</label></div>
+               <div class="divInline" style="width: 40%;">
+                  <span class="spanLabel">
+                     <span id = "originalAddr">${party[0].listContactPoint[0].info}</span>
+<!--                      <input type="text" id="postcode" style="width: 300px;" placeholder="우편번호"> -->
+                     <input name="info" id="address" style="width: 300px;" placeholder="주소"><br>
+                     <input name="info" id="detailAddress" style="width: 300px;" placeholder="상세주소">
+                  </span>
+               </div>
+               
+               <div class="divInline">
+                  <button class="btn btn-info" type="button" id="findPost" onclick="execPostcode();" style="margin-bottom: 5px;">우편번호 찾기</button><br>
+                  <div class="divInline" style="width: 40%;">
+                     <button class="btn btn-info" id="addrChange">주소지 변경</button>
+                     <button class="btn btn-info" id="lastAddrChange">변경하기</button>
+                  </div>
+                  <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+                       <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer"
+                           style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()"
+                           alt="닫기 버튼">
+                  </div>            
+                </div>
+            </div>
+            <hr>
+            
+            <div class="form-group">
+               <div class="divInline" style="margin-right: 10%;"><label>휴대폰 번호</label></div>
+               <div class="divInline" style="width: 40%;">
+                  <span id="originalMobileNum" class="spanLabel">${party[0].listContactPoint[1].info}</span>
+                  <input name="info" id="mobileNum" style="width: 300px;" placeholder="핸드폰 번호를 입력하세요">
+               </div>
+               <div class="divInline">
+                  <button class="btn btn-info" id="mobileNumChage">핸드폰 번호 변경</button>
+                  <button class="btn btn-info" id="lastMobileNumChage">변경하기</button>
+               </div>
+            </div>
+            <hr>
+            
+            <div class="form-group">
+               <div class="divInline" style="margin-right: 10%;"><label>집 전화 번호</label></div>
+               <div class="divInline" style="width: 40%;">
+                  <span id="originalPhoneNum" class="spanLabel">${party[0].listContactPoint[2].info}</span>
+                  <input name="info" id="PhoneNum" style="width: 300px;" placeholder="집 전화 번호를 입력하세요">
+               </div>
+               <div class="divInline">
+                  <button class="btn btn-info" id="phoneNumChage">집전화 번호 변경</button>
+                  <button class="btn btn-info" id="lastPhoneNumChage">변경하기</button>
+               </div>
+            </div>
+            <hr>
+            
+         <form id="chageUserName" method="post" action="/party/modifyMember">   
+            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+         </form>
+         
+         <form id="chageUserPwd" method="post" action="/party/modifyMember">   
+            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+         </form>
 
-			<form id="chageUserAddr" method="post" action="/party/modifyMember">	
-				<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
-			</form>
+         <form id="chageUserAddr" method="post" action="/party/modifyMember">   
+            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+         </form>
 
-			<form id="chageUserMobileNum" method="post" action="/party/modifyMember">	
-				<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
-			</form>
+         <form id="chageUserMobileNum" method="post" action="/party/modifyMember">   
+            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+         </form>
 
-			<form id="chageUserPhoneNum" method="post" action="/party/modifyMember">	
-				<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
-			</form>
+         <form id="chageUserPhoneNum" method="post" action="/party/modifyMember">   
+            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+         </form>
 
 
-			<button id="btnJoin" type="button" class="btn btn-primary" onclick="location.href='/party/myPage'" >취소</button>
-			<button id="btnRemoveMember" type="button"  class="btn btn-primary" onclick="location.href='/party/removeMember'">회원탈퇴</button>
-		</div>
-	</div>
+         <button id="btnJoin" type="button" class="btn btn-primary" onclick="location.href='/party/modifyMember'" >취소</button>
+         <button id="btnRemoveMember" type="button"  class="btn btn-primary" onclick="location.href='/party/removeMember'">회원탈퇴</button>
+      </div>
+   </div>
 
 
 <div id="modalChangeUserName" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">바꾸실 이름을 입력하세요</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label>이름을 입력하세요</label>
-					 <input class="form-control" name='name' id = "changeName" value=''>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button id='btnModifyUserName' type="button" class="btn btn-danger">수정하기</button>
-				<button id='btnCloseModal' type="button" class="btn btn-warning">취소</button>
-			</div>
-		</div>
-	</div>
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">바꾸실 이름을 입력하세요</h4>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label>이름을 입력하세요</label>
+                <input class="form-control" name='name' id = "changeName" value=''>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button id='btnModifyUserName' type="button" class="btn btn-danger">수정하기</button>
+            <button id='btnCloseModal' type="button" class="btn btn-warning">취소</button>
+         </div>
+      </div>
+   </div>
 </div>
 
    <%@include file="../includes/footer.jsp"%>
@@ -143,117 +145,117 @@
 var nameChange = $('#nameChange');
 var modalChangeUserName = $('#modalChangeUserName');
 nameChange.on("click", function(){
-	modalChangeUserName.modal("show");
+   modalChangeUserName.modal("show");
 })
 
 $('#btnCloseModal').on("click", function(){
-	modalChangeUserName.modal("hide");
+   modalChangeUserName.modal("hide");
 })
 
 //사용자 이름 변경하기
 $('#btnModifyUserName').on("click", function(){
-	if($('#changeName').val() == ""){
-		alert('이름을 입력해 주세요');
-		return;
-	}
-	$('#chageUserAddr').append("<input name='name' type='hidden' value='" + $('#changeName').val() + "'>");
-	$('#chageUserAddr').submit();
-	modalChangeUserName.modal("hide");
+   if($('#changeName').val() == ""){
+      alert('이름을 입력해 주세요');
+      return;
+   }
+   $('#chageUserAddr').append("<input name='name' type='hidden' value='" + $('#changeName').val() + "'>");
+   $('#chageUserAddr').submit();
+   modalChangeUserName.modal("hide");
 })
 
 //비밀번호 변경하기
 $('#pwdChange').on("click", function(){
-	if($('#userPwdCheck').val() == ""){
-		alert('비밀번호를 입력해주세요');
-		return;
-	}
-	$('#chageUserPwd').append("<input name='userPwd' type='hidden' value='" + $('#userPwdCheck').val() + "'>");
-	$('#chageUserPwd').submit();
+   if($('#userPwdCheck').val() == ""){
+      alert('비밀번호를 입력해주세요');
+      return;
+   }
+   $('#chageUserPwd').append("<input name='userPwd' type='hidden' value='" + $('#userPwdCheck').val() + "'>");
+   $('#chageUserPwd').submit();
 })
 //주소지 변경하기
 $('#lastAddrChange').on("click", function(){
-	if($('#address').val() == ""){
-		alert('주소를 입력해 주세요');
-		return;
-	}
-	if($('#detailAddress').val() == ""){
-		alert('상세 주소를 입력해 주세요');
-		return;
-	}
-	$('#chageUserAddr').append("<input name='info' type='hidden' value='" + $('#address').val() + "'>");
-	$('#chageUserAddr').append("<input name='info' type='hidden' value='" + $('#detailAddress').val() + "'>");
-	$('#chageUserAddr').append("<input name='contactPointType' type='hidden' value='address'>");
-	$('#chageUserAddr').submit();
+   if($('#address').val() == ""){
+      alert('주소를 입력해 주세요');
+      return;
+   }
+   if($('#detailAddress').val() == ""){
+      alert('상세 주소를 입력해 주세요');
+      return;
+   }
+   $('#chageUserAddr').append("<input name='info' type='hidden' value='" + $('#address').val() + "'>");
+   $('#chageUserAddr').append("<input name='info' type='hidden' value='" + $('#detailAddress').val() + "'>");
+   $('#chageUserAddr').append("<input name='contactPointType' type='hidden' value='address'>");
+   $('#chageUserAddr').submit();
 })
 //핸드폰 번호 변경하기
 $('#lastMobileNumChage').on("click", function(){
-	if($('#mobileNum').val() == ""){
-		alert('전화번호를 입력해주세요');
-		return;
-	}
-	$('#chageUserMobileNum').append("<input name='info' type='hidden' value='" + $('#mobileNum').val() + "'>");
-	$('#chageUserMobileNum').append("<input name='contactPointType' type='hidden' value='mobileNum'>");
-	$('#chageUserMobileNum').submit();
+   if($('#mobileNum').val() == ""){
+      alert('전화번호를 입력해주세요');
+      return;
+   }
+   $('#chageUserMobileNum').append("<input name='info' type='hidden' value='" + $('#mobileNum').val() + "'>");
+   $('#chageUserMobileNum').append("<input name='contactPointType' type='hidden' value='mobileNum'>");
+   $('#chageUserMobileNum').submit();
 })
 
 //집전화 번호 변경하기
 $('#lastPhoneNumChage').on("click", function(){
-	if($('#PhoneNum').val() == ""){
-		alert('전화번호를 입력해주세요');
-		return;
-	}
-	$('#chageUserPhoneNum').append("<input name='info' type='hidden' value='" + $('#PhoneNum').val() + "'>");
-	$('#chageUserPhoneNum').append("<input name='contactPointType' type='hidden' value='PhoneNum'>");
-	$('#chageUserPhoneNum').submit();
+   if($('#PhoneNum').val() == ""){
+      alert('전화번호를 입력해주세요');
+      return;
+   }
+   $('#chageUserPhoneNum').append("<input name='info' type='hidden' value='" + $('#PhoneNum').val() + "'>");
+   $('#chageUserPhoneNum').append("<input name='contactPointType' type='hidden' value='PhoneNum'>");
+   $('#chageUserPhoneNum').submit();
 })
 
 
 //우편번호 변경하기 눌렀을때
 $('#addrChange').on("click", function() {
-	$('#postcode').show();
-	$('#address').show();
-	$('#detailAddress').show();
-	$('#findPost').show();
-	$('#lastAddrChange').show();
-	$('#addrChange').hide();
-	$('#originalAddr').hide();
+   $('#postcode').show();
+   $('#address').show();
+   $('#detailAddress').show();
+   $('#findPost').show();
+   $('#lastAddrChange').show();
+   $('#addrChange').hide();
+   $('#originalAddr').hide();
 })
 
 //핸드폰 번호 바뀌기 눌렀을때
 $('#mobileNumChage').on("click", function() {
-	$('#mobileNum').show();
-	$('#lastMobileNumChage').show();
-	   
-	$('#mobileNumChage').hide();
-	$('#originalMobileNum').hide();
+   $('#mobileNum').show();
+   $('#lastMobileNumChage').show();
+      
+   $('#mobileNumChage').hide();
+   $('#originalMobileNum').hide();
 })
 
 //집 전화 번호 바뀌기 눌렀을때
 $('#phoneNumChage').on("click", function() {
-	$('#PhoneNum').show();
-	$('#lastPhoneNumChage').show();
-	   
-	$('#phoneNumChage').hide();
-	$('#originalPhoneNum').hide();
+   $('#PhoneNum').show();
+   $('#lastPhoneNumChage').show();
+      
+   $('#phoneNumChage').hide();
+   $('#originalPhoneNum').hide();
 })
 
    $(document).ready(function() {
-	   //주소 관련
-	   $('#postcode').hide();
-	   $('#address').hide();
-	   $('#detailAddress').hide();
-	   $('#findPost').hide();
-	   $('#lastAddrChange').hide();
-	   
-	   //핸드폰 번호 관련
-	   $('#mobileNum').hide();
-	   $('#lastMobileNumChage').hide();
-	   
-	   //집 전화 번호 관련
-	   $('#PhoneNum').hide();
-	   $('#lastPhoneNumChage').hide();
-	   
-   	var csrfHN = "${_csrf.headerName}";
+      //주소 관련
+      $('#postcode').hide();
+      $('#address').hide();
+      $('#detailAddress').hide();
+      $('#findPost').hide();
+      $('#lastAddrChange').hide();
+      
+      //핸드폰 번호 관련
+      $('#mobileNum').hide();
+      $('#lastMobileNumChage').hide();
+      
+      //집 전화 번호 관련
+      $('#PhoneNum').hide();
+      $('#lastPhoneNumChage').hide();
+      
+      var csrfHN = "${_csrf.headerName}";
        var csrfTV = "${_csrf.token}";
        $(document).ajaxSend(
            function(e, xhr){

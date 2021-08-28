@@ -35,6 +35,7 @@ create table s_party(
 	enabled			char(1)				default 1,
 	reg_dt			timestamp			default sysdate not null,	--등록 시점
 	upt_dt			timestamp			default sysdate not null,	--수정 시점
+	point			number(9)			default 0 not null,
 	descrim			varchar2(10)		not null	-- admin, manager를 넣기 위함
 	--Admin용 속성 정의함
 	--Manager용 속성 정의함

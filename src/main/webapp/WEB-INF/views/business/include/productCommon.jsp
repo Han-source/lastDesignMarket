@@ -110,17 +110,17 @@ input.addEventListener('keyup', function(e) {
        var txaContent = document.getElementById("txaContent");
        var price = document.getElementById("price");
        if(title.value=="") {
-              alert("제목을 입력해주셈");
+              alert("제목을 입력해주세요!");
               title.focus();
               return false;
           }
        if(txaContent.value=="") {
-              alert("내용을 입력해주셈");
+              alert("내용을 입력해주세요!");
               txaContent.focus();
               return false;
           }
        if(price.value=="") {
-              alert("가격을 입력해주셈");
+              alert("가격을 입력해주세요!");
               price.focus();
               return false;
           }

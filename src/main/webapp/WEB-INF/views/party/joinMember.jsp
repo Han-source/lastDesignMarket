@@ -101,7 +101,7 @@
          </c:forEach>      
                 <input type="hidden" name = "descrim" value="${memberType.partyType}" required>
                 <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}' required>
-                <button id="btnJoin" class="btn btn-primary" onclick="checkAllJoinMember(this.form).submit()" type="button">회원가입</button>
+                <button id="btnJoin" class="btn btn-primary" onclick="checkAllJoinMember(this.form).submit()" type="submit">회원가입</button>
                 </form>
             </div>
         

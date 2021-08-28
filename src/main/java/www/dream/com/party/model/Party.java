@@ -36,6 +36,7 @@ public abstract class Party extends CommonMngVO implements IHashTagOpponent { //
 	private Date 	birthDate;  // 생년월일
 	private boolean male;		// 성별
 	private boolean	enabled;	// 가입중, 탈퇴 시 false
+	private int point;
 	private String descrim;		//사용자 or admin
 	
 	@HashTarget

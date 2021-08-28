@@ -77,23 +77,23 @@
          </div>           
          <div class="adminChart" id="dayPurchase">
             <div style="display: block;">
-	          <canvas id="day1Purchase"  width="600" height="400">
-	          </canvas>          
+             <canvas id="day1Purchase"  width="600" height="400">
+             </canvas>          
            </div>
-			<div style="text-align: center; margin: 0 auto;">  
-            	<form id="frmDate1Pick" method="get" action="/post/adminManage">
-	            	<input id="datePick" type="date" pattern="yyyy-MM-dd" name="datePick">
-	            	<button id="btnJoin" class="btn btn-warning" type="button">조회</button>
-	           </form>
+         <div style="text-align: center; margin: 0 auto;">  
+               <form id="frmDate1Pick" method="get" action="/post/adminManage">
+                  <input id="datePick" type="date" pattern="yyyy-MM-dd" name="datePick">
+                  <button id="btnJoin" class="btn btn-warning" type="button">조회</button>
+              </form>
            </div>    
         </div>           
           <div class="adminChart" id="duringPurchase">   
-          	<div style="display: block;">         
-	         <canvas id="betweenDayPurchase"  width="600" height="400">
-	          </canvas>
-	        </div>
-	        <div style="text-align: center; margin: 0 auto;">  
-	          <form id="frmDateBetweenPick" method="get" action="/post/adminManage">               
+             <div style="display: block;">         
+            <canvas id="betweenDayPurchase"  width="600" height="400">
+             </canvas>
+           </div>
+           <div style="text-align: center; margin: 0 auto;">  
+             <form id="frmDateBetweenPick" method="get" action="/post/adminManage">               
                <input id="firstDate" type="date" pattern="yyyy-MM-dd"name="firstDate">
                <input id="lastDate" type="date" pattern="yyyy-MM-dd" name="lastDate">
                <button id="betweenDatebtn" class="btn btn-warning" type="button">조회</button>

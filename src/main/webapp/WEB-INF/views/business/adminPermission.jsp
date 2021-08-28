@@ -31,11 +31,11 @@
       </form>
       
       <form id="frmPermissionAgree" action="/business/adminPermission" method="post">
-      		<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
       </form>
       
       <form id="frmPermissionDisAgree" action="/business/adminPermission" method="post">
-      		<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
       </form>
 <!-- Begin Page Content -->
 <div class="inline-blockk">
@@ -51,7 +51,7 @@
          <h6 align="center" >거래 허가</h6>
       </div>
       <hr>
-		<section class="order-informationn-table">
+      <section class="order-informationn-table">
                     <div class="order-information-header" style="width: 90%;">
                         <div class="item-informationn info-top">상품정보</div>
                         <div class="item-order-datee">주문일자</div>
@@ -87,9 +87,9 @@
                                        </div>
                                        <input type="hidden" id="child" name="child" value="${adminPermission[status.index].board.parentId}">
                                        <input type="hidden" id="boardId" name="boardId" value="${adminPermission[status.index].board.id}">                              
-									   <input type="hidden" id="tradeId" name="tradeId" value="${adminPermission[status.index].trade.tradeId}">							 
-									   <input type="hidden" id="tradeDate" name="tradeDate" value="${adminPermission[status.index].trade.tradeDate}">
-							 		   <input type="hidden" id="productPrice" name="productPrice" value="${adminPermission[status.index].trade.productFinalPrice}">
+                              <input type="hidden" id="tradeId" name="tradeId" value="${adminPermission[status.index].trade.tradeId}">                      
+                              <input type="hidden" id="tradeDate" name="tradeDate" value="${adminPermission[status.index].trade.tradeDate}">
+                               <input type="hidden" id="productPrice" name="productPrice" value="${adminPermission[status.index].trade.productFinalPrice}">
                                    </a>
                                </div>
                                <div class="item-order-datee">
@@ -116,7 +116,7 @@
                         <div class="card-body" style="float: left; width: 50%; padding:10px;">
 
                               
-							  
+                       
                            <br>
 
                            <br>
@@ -124,10 +124,10 @@
                         </div> 
                </c:forEach>
                </section>   
-		
-		
-		
-	</div>
+      
+      
+      
+   </div>
 
     <script src="/resources/js/bootstrap.min.js"></script>
     <script src="/resources/js/owl.carousel.min.js"></script>
@@ -135,18 +135,18 @@
     <script src="/resources/js/main.js"></script>
     <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-	<script src="/resources/js/sb-admin-2.min.js"></script>
-	<script src="/resources/js/js-image-slider.js"></script>
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
-	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
-	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
-	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+   <script src="/resources/js/sb-admin-2.min.js"></script>
+   <script src="/resources/js/js-image-slider.js"></script>
+   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+   <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+   <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+   <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+   <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-	<script src="\resources\js\imgList\imgList.js"></script>
-	<script src="\resources\js\util\utf8.js"></script>
-	
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+   <script src="\resources\js\imgList\imgList.js"></script>
+   <script src="\resources\js\util\utf8.js"></script>
+   
 <script>
 function productImgListFunction(attachVOInJson, uuid, id){
     imgService.productImgList(attachVOInJson, uuid, id, 120, 120);
@@ -171,18 +171,18 @@ $('.anchor4product').on('click', function(e) {
  var frmPermissionAgree = $('#frmPermissionAgree');
  
  $('#purchaseAgreePermission').on("click", function () {
-	 frmPermissionAgree.append("<input name='permissionAgree' type='hidden' value='0'>");
-	 var a = $(this).val();
-	 frmPermissionAgree.append("<input name='tradeId' type='hidden' value='" + $(this).val() + "'>");
-	 frmPermissionAgree.submit();
+    frmPermissionAgree.append("<input name='permissionAgree' type='hidden' value='0'>");
+    var a = $(this).val();
+    frmPermissionAgree.append("<input name='tradeId' type='hidden' value='" + $(this).val() + "'>");
+    frmPermissionAgree.submit();
 })
 
  var frmPermissionDisAgree = $('#frmPermissionDisAgree');
  $('#purchaseDisAgreePermission').on("click", function () {
-	 frmPermissionDisAgree.append("<input name='permissionDisAgree' type='hidden' value='0'>");
-	 var a = $(this).val();
-	 frmPermissionDisAgree.append("<input name='tradeId' type='hidden' value='" + $(this).val() + "'>");
-	 frmPermissionDisAgree.submit();
+    frmPermissionDisAgree.append("<input name='permissionDisAgree' type='hidden' value='0'>");
+    var a = $(this).val();
+    frmPermissionDisAgree.append("<input name='tradeId' type='hidden' value='" + $(this).val() + "'>");
+    frmPermissionDisAgree.submit();
 })
  
 </script>

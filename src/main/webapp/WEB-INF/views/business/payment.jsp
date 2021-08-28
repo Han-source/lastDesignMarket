@@ -52,62 +52,62 @@ table {
     <section class="payment_wrap">
         <div class="payment_box">
             <h3>택배거래, 번개페이로 결제합니다</h3>
-            	<div class="payment_list">
-            	<!-- 이미지  -->
-            		<div class="payment_img" id="imageeDiv">
-						 <c:forEach var="attachVoInStr" items="${post.attachListInGson}" varStatus="sta">
-							<script>
-								$(document).ready(function() {
-									appendFunction('<c:out value="${attachVoInStr}" />', "${product.id}");
-								});
-							</script>							
-						</c:forEach>
-	                </div>
-							
-							<div class="payment_details">
-                		<c:choose>
-					        <c:when test="${negoBuyer eq null}"> 
-					            <h5 id="finalPrice">${product.productPrice}원</h5>
-					        </c:when>
-					        <c:otherwise> 
-					             <h5 id="finalPrice">${negoBuyer.discountPrice}원</h5>
-					        </c:otherwise>
-					   	 </c:choose>
-	                    <p>${post.content}</p>
-	                </div>
-						                </div>
-					
-				
+               <div class="payment_list">
+               <!-- 이미지  -->
+                  <div class="payment_img" id="imageeDiv">
+                   <c:forEach var="attachVoInStr" items="${post.attachListInGson}" varStatus="sta">
+                     <script>
+                        $(document).ready(function() {
+                           appendFunction('<c:out value="${attachVoInStr}" />', "${product.id}");
+                        });
+                     </script>                     
+                  </c:forEach>
+                   </div>
+                     
+                     <div class="payment_details">
+                      <c:choose>
+                       <c:when test="${negoBuyer eq null}"> 
+                           <h5 id="finalPrice">${product.productPrice}원</h5>
+                       </c:when>
+                       <c:otherwise> 
+                            <h5 id="finalPrice">${negoBuyer.discountPrice}원</h5>
+                       </c:otherwise>
+                      </c:choose>
+                       <p>${post.content}</p>
+                   </div>
+                                  </div>
+               
+            
               
                 <!--  배송지  -->
             <div class="shipping_address">
-            	<h3>수령인</h3>
-           			<div>
+               <h3>수령인</h3>
+                    <div>
                         <select id="userNameSelection" name="userNameSelection">
-							<option value="1" selected="selected">직접입력</option>
-							<option id="loginUser" value='${userName}'>${userName}</option>
-						</select>
-					</div>
-	                <div class="shipping_registration">
-	                    <input type="text" id="recipient" name="buyerName" placeholder="이름">
-	                </div>
-	            
-	            <h3>휴대폰 번호</h3>
-	                <div class="shipping_registration">
-	                    <input type="number" id="buyerForphonNum" name="phonNum" placeholder="휴대폰 번호를 입력해주세요.">
-	                </div>
-	                
-	            <h3>집 전화 번호</h3>
-	                <div class="shipping_registration">
+                     <option value="1" selected="selected">직접입력</option>
+                     <option id="loginUser" value='${userName}'>${userName}</option>
+                  </select>
+               </div>
+                   <div class="shipping_registration">
+                       <input type="text" id="recipient" name="buyerName" placeholder="이름">
+                   </div>
+               
+               <h3>휴대폰 번호</h3>
+                   <div class="shipping_registration">
+                       <input type="number" id="buyerForphonNum" name="phonNum" placeholder="휴대폰 번호를 입력해주세요.">
+                   </div>
+                   
+               <h3>집 전화 번호</h3>
+                   <div class="shipping_registration">
                          <input type="number" id="buyerForReserveNum" name="reserveNum" placeholder="예비 연락처를 입력해주세요.">
-	                </div>
-	                
+                   </div>
+                   
                 <h3>배송지 주소</h3>
-	                <div class="shipping_registration">
-	                    <input type="text" id="buyerForAddress" name="address"  placeholder="배송지 등록">
-	                </div>
+                   <div class="shipping_registration">
+                       <input type="text" id="buyerForAddress" name="address"  placeholder="배송지 등록">
+                   </div>
                 <div class="shipping_req">
-                	<input type="hidden" id="buyerForAbsentMsg" name="absentMsg" placeholder="배송 메모를 입력하세요.">
+                   <input type="hidden" id="buyerForAbsentMsg" name="absentMsg" placeholder="배송 메모를 입력하세요.">
                     <select id="absentMsgSelection" name="absentMsgSelection">
                         <option id="absentMsg" value="1">배송 요청사항(선택)</option>
                         <option id="absentMsg" value="배송전에 미리 연락주세요">배송전에 미리 연락주세요</option>
@@ -120,12 +120,13 @@ table {
             <div class="points_wrap">
                 <h3>포인트</h3>
                 <div class="remaining_points">
-                    <span>0</span>
+                    <span></span>
                     <button>전액사용</button>
+                    <br>
                 </div>
                 <p class="points_available">
-                    <span>사용 가능한 번개 포인트</span>
-                    <span>0</span>
+                    <span>사용 가능한 플릭스 포인트 : </span>
+                    <span>${loginPartyInfo.point}포인트</span>
                 </p>
             </div>
             <div class="payment_amountt">
@@ -138,14 +139,14 @@ table {
                         </p>
                         <p class="commissionn">
                             <span class="lefttt">할인된 금액</span>
-                            	<c:choose>
-							        <c:when test="${negoBuyer eq null}"> 
-							            <span class="righttt">0원</span>
-							        </c:when>
-							        <c:otherwise> 
-							             <span class="righttt">${product.productPrice - negoBuyer.discountPrice}원</span>
-							        </c:otherwise>
-								 </c:choose>                            
+                               <c:choose>
+                             <c:when test="${negoBuyer eq null}"> 
+                                 <span class="righttt">0원</span>
+                             </c:when>
+                             <c:otherwise> 
+                                  <span class="righttt">${product.productPrice - negoBuyer.discountPrice}원</span>
+                             </c:otherwise>
+                         </c:choose>                            
                         </p>
                         <p class="shipping_feeee">
                             <span class="lefttt">배송비</span>
@@ -153,27 +154,28 @@ table {
                         </p>
                         <p class="total_payment_amountt">
                             <span class="lefttt total_left">총 결제금액</span>
-                            	<c:choose>
-							        <c:when test="${negoBuyer eq null}">
-							            <span class="righttt total_right" id="finalPrice">${product.productPrice}원</span>
-							        </c:when>
-							        <c:otherwise> 
-							             <span class="righttt total_right" id="finalPrice">${negoBuyer.discountPrice}원</span>
-							        </c:otherwise>
-							    </c:choose>
+                               <c:choose>
+                             <c:when test="${negoBuyer eq null}">
+                                 <span class="righttt total_right" id="finalPrice">${product.productPrice}원</span>
+                             </c:when>
+                             <c:otherwise> 
+                                  <span class="righttt total_right" id="finalPrice">${negoBuyer.discountPrice}원</span>
+                             </c:otherwise>
+                         </c:choose>
                         </p>
                     </div>
                 </div>
             </div>
             <form id="frmPayment" method="post" action="/business/payment">
                <div class="make_paymentt">
-			       <button  type="button" id="kakao_trade">결제하기</button>
-			   </div>      
+                <button  type="button" id="kakao_trade">결제하기</button>
+            </div>      
                <input type="hidden" name="productFinalPrice" value="${product.productPrice}">
                <input type="hidden" name="sellerId" value="${post.writer.userId}">
                <input type="hidden" name="buyerId" value="${buyerId}">
                <input type="hidden" name="boardId" value="${boardId}">
-       	       <input type="hidden" name="child" value="${child}">
+                <input type="hidden" name="child" value="${child}">
+<!--                 <input type="hidden" name="points" value="45"> -->
                <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
             </form>
             
@@ -187,53 +189,57 @@ table {
 <script type="text/javascript">
 
 function appendFunction(attachVOInJson, postId){
-	imgService.append(attachVOInJson, false, postId);
+   imgService.append(attachVOInJson, false, postId);
 }
 
-
+// $(document).ready(function() {
+// 	var earnPoints = Math.floor(${product.productPrice} * 0.01);
+	
+// 	$('input[name="points"]').attr("value", earnPoints);
+// });
 
 $('#userNameSelection').change(function() {
-	var addr;
-	var phoneNum;
-	var homeNum;
-	var recipient = $('#recipient');
-	var buyerForAddress = $('#buyerForAddress');
-	var buyerForphonNum = $('#buyerForphonNum');
-	var buyerForReserveNum = $('#buyerForReserveNum');
+   var addr;
+   var phoneNum;
+   var homeNum;
+   var recipient = $('#recipient');
+   var buyerForAddress = $('#buyerForAddress');
+   var buyerForphonNum = $('#buyerForphonNum');
+   var buyerForReserveNum = $('#buyerForReserveNum');
 
-   	addr = "${loginPersonInfo[0].info}";
-	phoneNum = "${loginPersonInfo[1].info}";
-	homeNum = "${loginPersonInfo[2].info}";
- 	
-	
- 	
-	if($(this).val()=="1"){
-		recipient.val("");
-		buyerForAddress.val("");
-		buyerForphonNum.val("");
-		buyerForReserveNum.val("");
-		
-		recipient.attr("readonly", false);
-		buyerForAddress.attr("readonly", false);
-		buyerForphonNum.attr("readonly", false);
-		buyerForReserveNum.attr("readonly", false);
-	} else {
-		recipient.val(document.getElementById('loginUser').innerHTML);
-		buyerForAddress.val(addr);
-		buyerForphonNum.val(phoneNum);
-		buyerForReserveNum.val(homeNum);
-	}
+      addr = "${loginContactInfo[0].info}";
+   phoneNum = "${loginContactInfo[1].info}";
+   homeNum = "${loginContactInfo[2].info}";
+    
+   
+    
+   if($(this).val()=="1"){
+      recipient.val("");
+      buyerForAddress.val("");
+      buyerForphonNum.val("");
+      buyerForReserveNum.val("");
+      
+      recipient.attr("readonly", false);
+      buyerForAddress.attr("readonly", false);
+      buyerForphonNum.attr("readonly", false);
+      buyerForReserveNum.attr("readonly", false);
+   } else {
+      recipient.val(document.getElementById('loginUser').innerHTML);
+      buyerForAddress.val(addr);
+      buyerForphonNum.val(phoneNum);
+      buyerForReserveNum.val(homeNum);
+   }
 });
 
 
 $('select[name=absentMsgSelection]').change(function() {
-	if($(this).val()=="1"){
-		$('#buyerForAbsentMsg').val("");
-		$("#buyerForAbsentMsg").attr("readonly", false);
-	} else {
-		$('#buyerForAbsentMsg').val($(this).val());
-		$("#buyerForAbsentMsg").attr("readonly", true);
-	}
+   if($(this).val()=="1"){
+      $('#buyerForAbsentMsg').val("");
+      $("#buyerForAbsentMsg").attr("readonly", false);
+   } else {
+      $('#buyerForAbsentMsg').val($(this).val());
+      $("#buyerForAbsentMsg").attr("readonly", true);
+   }
 });
 
 
@@ -243,33 +249,36 @@ $('#kakao_trade').click(function () {
     IMP.init('imp24192490');
     var money = document.getElementById('finalPrice').innerHTML;
     var csrfHN = "${_csrf.headerName}";
-	var csrfTV = "${_csrf.token}";
-	// 로그인한 사용자 정보
-	var address;
-	var phoneNum;
-	var mobileNum;
-	
-	//구매하면 보낼 곳의 정보, 주소, 폰번호, 예비번호, 부재시 메시지를 받아야함.
-	//결재시 받을 주소
-	var buyerForAddress = $('#buyerForAddress').val();
-	//결제시 받을 연락 받을 번호
-	var buyerForphonNum = $('#buyerForphonNum').val();
-	//집 전화번호
-	var buyerForReserveNum = $('#buyerForReserveNum').val();
-	//부재시 메세지
-	var buyerForAbsentMsg = $('#buyerForAbsentMsg').val();
-	
-	var param = {"address":buyerForAddress, "phonNum":buyerForphonNum, 
-			"reserveNum":buyerForReserveNum, "absentMsg":buyerForAbsentMsg,
-			"productFinalPrice":parseInt(money), "buyerId":"${buyerId}" , "sellerId":"${post.writer.userId}" ,productId:"${post.id}" };
-	var shippingInfoVO = JSON.stringify(param);
+   var csrfTV = "${_csrf.token}";
+   // 로그인한 사용자 정보
+   var address;
+   var phoneNum;
+   var mobileNum;
+   
+   //구매하면 보낼 곳의 정보, 주소, 폰번호, 예비번호, 부재시 메시지를 받아야함.
+   //결재시 받을 주소
+   var buyerForAddress = $('#buyerForAddress').val();
+   //결제시 받을 연락 받을 번호
+   var buyerForphonNum = $('#buyerForphonNum').val();
+   //집 전화번호
+   var buyerForReserveNum = $('#buyerForReserveNum').val();
+   //부재시 메세지
+   var buyerForAbsentMsg = $('#buyerForAbsentMsg').val();
+   // 포인트 적립
+   var earnPoints = Math.floor(${product.productPrice} * 0.01);
+   
+   var param = {"address":buyerForAddress, "phonNum":buyerForphonNum, 
+         "reserveNum":buyerForReserveNum, "absentMsg":buyerForAbsentMsg,
+         "productFinalPrice":parseInt(money), "buyerId":"${buyerId}" , "sellerId":"${post.writer.userId}" ,productId:"${post.id}",
+         "points":earnPoints};
+   var shippingInfoVO = JSON.stringify(param);
     IMP.request_pay({
         pg: 'kakao',
         merchant_uid: 'merchant_' + new Date().getTime(),
         amount: parseInt(money),
         buyer_name: "${buyerId}",
         seller_id: "${post.writer.userId}",
-   	 	name: '주문명 : 주문명 설정',
+          name: '주문명 : 주문명 설정',
         buyer_email: 'iamport@siot.do',
         buyer_tel: phoneNum,
         buyer_mobile:mobileNum,
@@ -288,12 +297,12 @@ $('#kakao_trade').click(function () {
                 dataType: 'json',
                 url: "/business/purchase",
                 headers: {
-                	'Content-Type' : 'application/json'
+                   'Content-Type' : 'application/json'
                 },
                 data: JSON.stringify(param),
                 beforeSend : function(xhr) {
-    				xhr.setRequestHeader(csrfHN, csrfTV);
-    			},
+                xhr.setRequestHeader(csrfHN, csrfTV);
+             },
             });
         } else {
             var msg = '결제에 실패하였습니다.';
@@ -304,5 +313,4 @@ $('#kakao_trade').click(function () {
     });
 });
 </script>
-
 

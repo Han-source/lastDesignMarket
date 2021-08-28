@@ -37,188 +37,192 @@ import www.dream.com.hashTag.service.HashTagService;
 @Service
 public class BusinessService {
 
-	@Autowired
-	private BusinessMapper businessMapper;
-	@Autowired
-	private HashTagService hashTagService;
-	@Autowired
-	private AttachFileVOMapper attachFileVOMapper;
-	@Autowired
-	private ReplyMapper replyMapper;
+   @Autowired
+   private BusinessMapper businessMapper;
+   @Autowired
+   private HashTagService hashTagService;
+   @Autowired
+   private AttachFileVOMapper attachFileVOMapper;
+   @Autowired
+   private ReplyMapper replyMapper;
 
-	
-	/* 상품id를 통한 product 정보 검색 */
-	public ProductVO findPriceById(String id) {
-		return businessMapper.findPriceById(id);
-	}
+   /* 상품id를 통한 product 정보 검색 */
+   public ProductVO findPriceById(String id) {
+      return businessMapper.findPriceById(id);
+   }
 
-	/* 상품id를 통한 tradeCondition 정보 검색 */
-	public TradeConditionVO findAuctionPriceById(String id) {
-		return businessMapper.findAuctionPriceById(id);
-	}
+   /* 상품id를 통한 tradeCondition 정보 검색 */
+   public TradeConditionVO findAuctionPriceById(String id) {
+      return businessMapper.findAuctionPriceById(id);
+   }
 
-	/* 상품id를 통한 경매 참여자 정보 검색 */
-	public List<TradeConditionVO> findAuctionPartyById(String id) {
-		return businessMapper.findAuctionPartyById(id);
-	}
+   /* 상품id를 통한 경매 참여자 정보 검색 */
+   public List<TradeConditionVO> findAuctionPartyById(String id) {
+      return businessMapper.findAuctionPartyById(id);
+   }
 
-	/* 상품 차트 기능 */
-	public List<TradeConditionVO> lookChartProduct(String postId) {
-		return businessMapper.lookChartProduct(postId);
-	}
+   /* 상품 차트 기능 */
+   public List<TradeConditionVO> lookChartProduct(String postId) {
+      return businessMapper.lookChartProduct(postId);
+   }
 
-	/* 판매현황 차트화 */
-	public List<TradeVO> selledChart(String userId) {
-		return businessMapper.selledChart(userId);
-	}
+   /* 판매현황 차트 기간 정해서 보는 기능 */
+   public List<TradeVO> mySelledDateChart(String userId, String firstDate, String lastDate) {
+      return businessMapper.mySelledDateChart(userId, firstDate, lastDate);
+   }
 
-	/* 경매 가격의 최대값 비교 */
-	public TradeConditionVO findMaxBidPrice(String productId) {
-		return businessMapper.findMaxBidPrice(productId);
-	}
+   /* 판매현황 차트화 */
+   public List<TradeVO> selledChart(String userId) {
+      return businessMapper.selledChart(userId);
+   }
 
-	/* 안전거래에서 해당 이용자가 네고한 적이 있는지를 가져오는 함수 */
-	public TradeConditionVO findNegoPriceByBuyerWithProductId(String productId, TradeConditionVO tc) {
-		return businessMapper.findNegoPriceByBuyerWithProductId(productId, tc);
-	}
+   /* 경매 가격의 최대값 비교 */
+   public TradeConditionVO findMaxBidPrice(String productId) {
+      return businessMapper.findMaxBidPrice(productId);
+   }
 
-	public void insertAuctionPrice(PostVO post, TradeConditionVO tradeCondition, BoardVO board) {
-		businessMapper.insertAuctionPrice(post, tradeCondition, board);
-	}
+   /* 안전거래에서 해당 이용자가 네고한 적이 있는지를 가져오는 함수 */
+   public TradeConditionVO findNegoPriceByBuyerWithProductId(String productId, TradeConditionVO tc) {
+      return businessMapper.findNegoPriceByBuyerWithProductId(productId, tc);
+   }
 
-	/* 결제가 완료 되면 selled에 +1 하는 기능 */
-	public int selledProdut(String productId) {
-		return businessMapper.selledProdut(productId);
-	}
+   public void insertAuctionPrice(PostVO post, TradeConditionVO tradeCondition, BoardVO board) {
+      businessMapper.insertAuctionPrice(post, tradeCondition, board);
+   }
 
-	/* 상품 결제 시 shipping 정보 */
-	public ShippingInfoVO findMyShippingInfo(String productId) {
-		return businessMapper.findMyShippingInfo(productId);
-	}
+   /* 결제가 완료 되면 selled에 +1 하는 기능 */
+   public int selledProdut(String productId) {
+      return businessMapper.selledProdut(productId);
+   }
 
-	/* 일반 상품 등록 기능 */
-	@Transactional
-	public void insertCommonProduct(ProductVO productVO, PostVO post, BoardVO board) throws IOException {
-		int affectedRows = businessMapper.insertCommonProduct(productVO, post, board);
-		Map<String, Integer> mapOccur = PosAnalyzer.getHashTags(post); // 06.01에 만든 PosAnalyzer FrameWork
-		// 수 많은 단어가 들어왔는데, 기존의 단어와 새롭게 들어올 단어를 분리해야할것 같음
-		hashTagService.CreateHashTagAndMapping(post, mapOccur);
+   /* 상품 결제 시 shipping 정보 */
+   public ShippingInfoVO findMyShippingInfo(String productId) {
+      return businessMapper.findMyShippingInfo(productId);
+   }
 
-		List<AttachFileVO> listAttach = post.getListAttach();
-		if (listAttach != null && !listAttach.isEmpty()) {
-			attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttach);
-		} else {
-			// 첨부파일이 없다면 강제적으로 이미지를 넣어줍니다.
-			List<AttachFileVO> listAttachFileVO = new ArrayList<>();
-			String UPLOAD_FOLDER = "C:\\uploadedFiles";
-			File uploadPath = new File(UPLOAD_FOLDER, PostService.getFolderName());
-			if (!uploadPath.exists()) {
-				// 필요한 폴더 구조가 없다면 그 전체를 만들어 준다.
-				uploadPath.mkdirs(); // 필요한 경로들을 다 만들겠다는 함수 mkdirs
-			}
-			File file = new File("C:\\Users\\User\\Desktop\\no.png");
-			DiskFileItem fileItem = new DiskFileItem("file", Files.probeContentType(file.toPath()), false,
-					file.getName(), (int) file.length(), file.getParentFile());
-			InputStream input = new FileInputStream(file);
-			OutputStream os = fileItem.getOutputStream();
-			IOUtils.copy(input, os);
-			MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
-			listAttachFileVO.add(new AttachFileVO(uploadPath, multipartFile));
-			List<AttachFileVO> list = listAttachFileVO;
-			attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttachFileVO);
-		}
-	}
+   /* 일반 상품 등록 기능 */
+   @Transactional
+   public void insertCommonProduct(ProductVO productVO, PostVO post, BoardVO board) throws IOException {
+      int affectedRows = businessMapper.insertCommonProduct(productVO, post, board);
+      Map<String, Integer> mapOccur = PosAnalyzer.getHashTags(post); // 06.01에 만든 PosAnalyzer FrameWork
+      // 수 많은 단어가 들어왔는데, 기존의 단어와 새롭게 들어올 단어를 분리해야할것 같음
+      hashTagService.CreateHashTagAndMapping(post, mapOccur);
 
-	/* 경매 상품 등록 가능 */
-	@Transactional
-	public void insertAuctionProduct(ProductVO productVO, PostVO post, TradeConditionVO tradeCondition, BoardVO board)
-			throws IOException {
-		int affectedRows = businessMapper.insertAuctionProduct(productVO, post, tradeCondition, board);
-		Map<String, Integer> mapOccur = PosAnalyzer.getHashTags(post); // 06.01에 만든 PosAnalyzer FrameWork
-		// 수 많은 단어가 들어왔는데, 기존의 단어와 새롭게 들어올 단어를 분리해야할것 같음
-		hashTagService.CreateHashTagAndMapping(post, mapOccur);
-		List<AttachFileVO> listAttach = post.getListAttach();
-		if (listAttach != null && !listAttach.isEmpty()) {
-			attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttach);
-		} else {
-			// 첨부파일이 없다면 강제적으로 이미지를 넣어줍니다.
-			List<AttachFileVO> listAttachFileVO = new ArrayList<>();
-			String UPLOAD_FOLDER = "C:\\uploadedFiles";
-			File uploadPath = new File(UPLOAD_FOLDER, PostService.getFolderName());
-			if (!uploadPath.exists()) {
-				// 필요한 폴더 구조가 없다면 그 전체를 만들어 준다.
-				uploadPath.mkdirs(); // 필요한 경로들을 다 만들겠다는 함수 mkdirs
-			}
-			File file = new File("C:\\Users\\User\\Desktop\\no.png");
-			DiskFileItem fileItem = new DiskFileItem("file", Files.probeContentType(file.toPath()), false,
-					file.getName(), (int) file.length(), file.getParentFile());
-			InputStream input = new FileInputStream(file);
-			OutputStream os = fileItem.getOutputStream();
-			IOUtils.copy(input, os);
-			MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
-			listAttachFileVO.add(new AttachFileVO(uploadPath, multipartFile));
-			List<AttachFileVO> list = listAttachFileVO;
-			attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttachFileVO);
-		}
-	}
+      List<AttachFileVO> listAttach = post.getListAttach();
+      if (listAttach != null && !listAttach.isEmpty()) {
+         attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttach);
+      } else {
+         // 첨부파일이 없다면 강제적으로 이미지를 넣어줍니다.
+         List<AttachFileVO> listAttachFileVO = new ArrayList<>();
+         String UPLOAD_FOLDER = "C:\\uploadedFiles";
+         File uploadPath = new File(UPLOAD_FOLDER, PostService.getFolderName());
+         if (!uploadPath.exists()) {
+            // 필요한 폴더 구조가 없다면 그 전체를 만들어 준다.
+            uploadPath.mkdirs(); // 필요한 경로들을 다 만들겠다는 함수 mkdirs
+         }
+         File file = new File("C:\\Users\\User\\Desktop\\no.png");
+         DiskFileItem fileItem = new DiskFileItem("file", Files.probeContentType(file.toPath()), false,
+               file.getName(), (int) file.length(), file.getParentFile());
+         InputStream input = new FileInputStream(file);
+         OutputStream os = fileItem.getOutputStream();
+         IOUtils.copy(input, os);
+         MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+         listAttachFileVO.add(new AttachFileVO(uploadPath, multipartFile));
+         List<AttachFileVO> list = listAttachFileVO;
+         attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttachFileVO);
+      }
+   }
 
-	/* 판매현황 조회 */
-	public List<TradeVO> findAllPurchase() {
-		return businessMapper.findAllPurchase();
-	}
+   /* 경매 상품 등록 가능 */
+   @Transactional
+   public void insertAuctionProduct(ProductVO productVO, PostVO post, TradeConditionVO tradeCondition, BoardVO board)
+         throws IOException {
+      int affectedRows = businessMapper.insertAuctionProduct(productVO, post, tradeCondition, board);
+      Map<String, Integer> mapOccur = PosAnalyzer.getHashTags(post); // 06.01에 만든 PosAnalyzer FrameWork
+      // 수 많은 단어가 들어왔는데, 기존의 단어와 새롭게 들어올 단어를 분리해야할것 같음
+      hashTagService.CreateHashTagAndMapping(post, mapOccur);
+      List<AttachFileVO> listAttach = post.getListAttach();
+      if (listAttach != null && !listAttach.isEmpty()) {
+         attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttach);
+      } else {
+         // 첨부파일이 없다면 강제적으로 이미지를 넣어줍니다.
+         List<AttachFileVO> listAttachFileVO = new ArrayList<>();
+         String UPLOAD_FOLDER = "C:\\uploadedFiles";
+         File uploadPath = new File(UPLOAD_FOLDER, PostService.getFolderName());
+         if (!uploadPath.exists()) {
+            // 필요한 폴더 구조가 없다면 그 전체를 만들어 준다.
+            uploadPath.mkdirs(); // 필요한 경로들을 다 만들겠다는 함수 mkdirs
+         }
+         File file = new File("C:\\Users\\User\\Desktop\\no.png");
+         DiskFileItem fileItem = new DiskFileItem("file", Files.probeContentType(file.toPath()), false,
+               file.getName(), (int) file.length(), file.getParentFile());
+         InputStream input = new FileInputStream(file);
+         OutputStream os = fileItem.getOutputStream();
+         IOUtils.copy(input, os);
+         MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+         listAttachFileVO.add(new AttachFileVO(uploadPath, multipartFile));
+         List<AttachFileVO> list = listAttachFileVO;
+         attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttachFileVO);
+      }
+   }
 
-	public List<TradeVO> find1DayPurchase(String pickDate) {
-		return businessMapper.find1DayPurchase(pickDate);
-	}
+   /* 판매현황 조회 */
+   public List<TradeVO> findAllPurchase() {
+      return businessMapper.findAllPurchase();
+   }
 
-	// 원하는 날부터 다른날까지 조회
-	public List<TradeVO> findBetweenDayPurchase(String firstDate, String lastDate) {
-		return businessMapper.findBetweenDayPurchase(firstDate, lastDate);
-	}
+   public List<TradeVO> find1DayPurchase(String pickDate) {
+      return businessMapper.find1DayPurchase(pickDate);
+   }
 
-	/* 상품 네고 기능 */
-	public void insertNegoProductPrice2Buyer(TradeConditionVO tradeCondition, String postId, PostVO post) {
-		businessMapper.insertNegoProductPrice2Buyer(tradeCondition, postId, post);
-	}
+   // 원하는 날부터 다른날까지 조회
+   public List<TradeVO> findBetweenDayPurchase(String firstDate, String lastDate) {
+      return businessMapper.findBetweenDayPurchase(firstDate, lastDate);
+   }
 
-	/* 장바구니 담기 기능 */
-	public void insertShopphingCart(String userId, String productId) {
-		businessMapper.insertShopphingCart(userId, productId);
-	}
+   /* 상품 네고 기능 */
+   public void insertNegoProductPrice2Buyer(TradeConditionVO tradeCondition, String postId, PostVO post) {
+      businessMapper.insertNegoProductPrice2Buyer(tradeCondition, postId, post);
+   }
 
-	/* 해당 상품을 내가 장바구니에 이미 담았는지를 검사 */
-	public int findShoppingCartByUserIdAndProductId(String userId, String productId) {
-		return businessMapper.findShoppingCartByUserIdAndProductId(userId, productId);
-	}
+   /* 장바구니 담기 기능 */
+   public void insertShopphingCart(String userId, String productId) {
+      businessMapper.insertShopphingCart(userId, productId);
+   }
 
-	/* 결제가 완료 되면 결제 테이블에 값 담기 */
-	public void purchaseProduct(ShippingInfoVO shippingInfo) {
-		businessMapper.purchaseProduct(shippingInfo);
-	}
+   /* 해당 상품을 내가 장바구니에 이미 담았는지를 검사 */
+   public int findShoppingCartByUserIdAndProductId(String userId, String productId) {
+      return businessMapper.findShoppingCartByUserIdAndProductId(userId, productId);
+   }
 
-	// 판매 허가 함수
-	public void updateAdminPurchase(String tradeId) {
-		businessMapper.updateAdminPurchase(tradeId);
-	}
+   /* 결제가 완료 되면 결제 테이블에 값 담기 */
+   public void purchaseProduct(ShippingInfoVO shippingInfo) {
+      businessMapper.purchaseProduct(shippingInfo);
+   }
 
-	// 판매 거절 함수
-	public void updateAdminDisAgreepurchase(String tradeId) {
-		businessMapper.updateAdminDisAgreepurchase(tradeId);
-	}
-	
-	//상품 업데이트 함수
-	public boolean updatePost(PostVO post) {
-		attachFileVOMapper.deleteProductImg(post.getId());
-		// 첨부파일 정보고 관리 합니다.
-		List<AttachFileVO> listAttach = post.getListAttach();
-		if (listAttach != null && !listAttach.isEmpty()) {
-			attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttach);
-		}
+   // 판매 허가 함수
+   public void updateAdminPurchase(String tradeId) {
+      businessMapper.updateAdminPurchase(tradeId);
+   }
 
-		hashTagService.deleteMap(post);
-		Map<String, Integer> mapOccur = PosAnalyzer.getHashTags(post);
-		hashTagService.CreateHashTagAndMapping(post, mapOccur);
+   // 판매 거절 함수
+   public void updateAdminDisAgreepurchase(String tradeId) {
+      businessMapper.updateAdminDisAgreepurchase(tradeId);
+   }
 
-		return replyMapper.updatePost(post) == 1;
-	}
+   // 상품 업데이트 함수
+   public boolean updatePost(PostVO post) {
+      attachFileVOMapper.deleteProductImg(post.getId());
+      // 첨부파일 정보고 관리 합니다.
+      List<AttachFileVO> listAttach = post.getListAttach();
+      if (listAttach != null && !listAttach.isEmpty()) {
+         attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttach);
+      }
+
+      hashTagService.deleteMap(post);
+      Map<String, Integer> mapOccur = PosAnalyzer.getHashTags(post);
+      hashTagService.CreateHashTagAndMapping(post, mapOccur);
+
+      return replyMapper.updatePost(post) == 1;
+   }
 }

@@ -74,6 +74,8 @@ public interface PartyMapper { // 13. persistence package에 PartyMapper interfa
 	// 권한 처리 관련 영역
 	public partyOfAuthVO getMemberType();
 
+	// 포인트 적립 처리
+	public void EarnPoints(@Param("points") int points, @Param("userId") String userId);
 	/** --------------------------- D ------------------------------- */
 
 	// 회원 정보 삭제 처리

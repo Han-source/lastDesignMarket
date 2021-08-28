@@ -17,6 +17,7 @@
 		<result property="birthDate" column="birth_dt"></result>
 		<result property="male" column="sex"></result>
 		<result property="enabled" column="enabled"></result>
+		<result property="point" column="point"></result>
 		<result property="descrim" column="descrim"></result>
 
 		<!-- Party의 여러개의 연락처가 있는데 그것을 sql에서 join된 결과물들이 나오는데 cp_로 시작하는 칼럼이 나오면 
@@ -121,8 +122,8 @@
 	<!-- public Party findPartyByUserId(String userId); -->
 	<select id="findPartyByUserId" resultMap="partyMap"> 
    <![CDATA[
-   select user_id, user_pwd, name, descrim
-      from s_party p
+   select user_id, user_pwd, name, descrim, point
+      from s_party 
      where user_id = #{userId}
    ]]>
 	</select>
@@ -172,6 +173,14 @@
 		set info = #{cp.info}, upt_dt = sysdate
 		where user_id = #{user.userId}
 		and contact_point_type = 'mobileNum'
+	</update>
+	
+	<!--  	// 포인트 적립 처리
+	public void EarnPoints(@Param("points") int points, @Param("userId") String userId); -->
+	<update id="EarnPoints">
+ 	   update s_party
+         set point = point + #{points}
+         where user_id = #{userId}
 	</update>
 	
 	

@@ -103,8 +103,29 @@
        GROUP BY d.trade_date
        order by d.trade_date
    </select>
+<!-- 판매현황 차트 기간 정해서 보는 기능 -->
+   <!-- public List<TradeVO> mySelledDateChart(@Param("userId") String userId, @Param("firstDate") String firstDate,
+         @Param("lastDate") String lastDate); -->
+   <select id="mySelledDateChart" resultMap="tradeMap">
+   select d.trade_date as trade_date, sum(t.product_final_price) as product_final_price 
+        from s_trade t, s_trade_product tp,
+                  (select distinct TO_CHAR(t.trade_date, 'yyyy-mm-dd') trade_date
+                    from s_trade t, s_trade_product tp
+                     where t.product_id = tp.product_id
+                     group by t.trade_date) d, s_party p                   
+       where TO_CHAR(t.trade_date, 'yyyy-mm-dd') = d.trade_date
+      and tp.user_id = #{userId}
+        and t.seller_id = tp.user_id
+        and selled = 1
+        and p.user_id = t.seller_id
+        and tp.product_id = t.product_id
+         and t.trade_date BETWEEN TO_date(#{firstDate}, 'YYYY-MM-DD') 
+                   AND TO_date(#{lastDate}, 'YYYY-MM-DD')
+       GROUP BY d.trade_date
+       order by d.trade_date
+   </select>
    
-   <!-- public int findShoppingCartByUserIdAndProductId(@Param("userId") String userId, @Param("productId") String productId); -->
+      <!-- public int findShoppingCartByUserIdAndProductId(@Param("userId") String userId, @Param("productId") String productId); -->
    <select id="findShoppingCartByUserIdAndProductId" resultType="_int"> 
    <![CDATA[ 
    select count(*)
@@ -184,10 +205,10 @@
 
 <!-- /* 상품 결제 시 shipping 정보 public void findMyShippingInfo(@Param("productId") String productId); -->
    <select id="findMyShippingInfo" resultMap="shippingMap"> 
-	select si.*
-	  from s_trade st, s_shipping_info si
-	 where st.trade_id = si.trade_id
-	 and st.product_id = #{productId}
+   select si.*
+     from s_trade st, s_shipping_info si
+    where st.trade_id = si.trade_id
+    and st.product_id = #{productId}
    </select>
 <!--public void insertNegoProductPrice2Buyer(@Param("tradeCondition") TradeConditionVO tradeCondition, @Param("postId") String postId); -->
    <insert id="insertNegoProductPrice2Buyer">
@@ -239,23 +260,23 @@
    </update>
    
 <!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆판매현황 조회 관련 함수☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
-	<!-- public TradeVO findAllPurchase(); -->
-	<select id="findAllPurchase" resultMap="tradeMap">
-		select d.trade_date as trade_date, sum(t.product_final_price) as product_final_price
-		  from s_trade t,
-		            (select distinct TO_CHAR(t.trade_date, 'yyyy-mm-dd') trade_date
-		              from s_trade t, s_trade_product tp
-		             where t.product_id = tp.product_id
-		             group by t.trade_date) d
-		 where TO_CHAR(t.trade_date, 'yyyy-mm-dd') = d.trade_date
-		 GROUP BY d.trade_date
-		 order by d.trade_date 
-	</select>
-	
-	
-	<!-- public List<TradeVO> find1DayPurchase(@Param("pickDate") Date pickDate); -->
-	<select id="find1DayPurchase" resultMap="tradeMap">
-		select d.trade_date as trade_date, sum(t.product_final_price) as product_final_price
+   <!-- public TradeVO findAllPurchase(); -->
+   <select id="findAllPurchase" resultMap="tradeMap">
+      select d.trade_date as trade_date, sum(t.product_final_price) as product_final_price
+        from s_trade t,
+                  (select distinct TO_CHAR(t.trade_date, 'yyyy-mm-dd') trade_date
+                    from s_trade t, s_trade_product tp
+                   where t.product_id = tp.product_id
+                   group by t.trade_date) d
+       where TO_CHAR(t.trade_date, 'yyyy-mm-dd') = d.trade_date
+       GROUP BY d.trade_date
+       order by d.trade_date 
+   </select>
+   
+   
+   <!-- public List<TradeVO> find1DayPurchase(@Param("pickDate") Date pickDate); -->
+   <select id="find1DayPurchase" resultMap="tradeMap">
+      select d.trade_date as trade_date, sum(t.product_final_price) as product_final_price
         from s_trade t,
                   (select distinct TO_CHAR(t.trade_date, 'yyyy-mm-dd') trade_date
                     from s_trade t, s_trade_product tp
@@ -265,11 +286,11 @@
          and d.trade_date = #{pickDate}
        GROUP BY d.trade_date
        order by d.trade_date 
-	</select>
-	
+   </select>
+   
    <!--  public List<TradeVO> findBetweenDayPurchase(@Param("firstDate") Date firstDate, @Param("lastDate") Date lastDate);-->
    <select id="findBetweenDayPurchase" resultMap="tradeMap">
-		select d.trade_date as trade_date, sum(t.product_final_price) as product_final_price
+      select d.trade_date as trade_date, sum(t.product_final_price) as product_final_price
         from s_trade t,
                   (select distinct TO_CHAR(t.trade_date, 'yyyy-mm-dd') trade_date
                     from s_trade t, s_trade_product tp
@@ -280,7 +301,7 @@
        where TO_CHAR(t.trade_date, 'yyyy-mm-dd') = d.trade_date
        GROUP BY d.trade_date
        order by d.trade_date
-	</select>
+   </select>
 <!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆inClude☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆ -->
    
    <sql id="findAuctionCommon">
