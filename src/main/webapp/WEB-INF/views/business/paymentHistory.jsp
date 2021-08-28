@@ -113,12 +113,7 @@
             <!-- Paging 처리 05.27 -->
             <!-- EL로 처리, Criteria.java에 있음  -->
             <div class='fa-pull-right'>${page.pagingDiv}</div>
-   
-   
-
          </div>
-         
-         
       </div>
    </div>
    </div>

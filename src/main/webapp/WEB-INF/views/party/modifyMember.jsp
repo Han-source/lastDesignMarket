@@ -19,7 +19,9 @@
         <hr style="border: 1px solid black;">
                 <div >
 					<div class="divInline" style="margin-right: 10%;"><label>이름</label></div>
-					<div class="divInline"><span class="spanLabel">${party[0].name}</span></div>
+					<div class="divInline" style="width: 40%;">
+						<span class="spanLabel">${party[0].name}</span>
+					</div>
 					<div class="divInline">
 						<button class="btn btn-info" id="nameChange">개명시? 이름변경</button>
 					</div>
@@ -28,9 +30,9 @@
 				  
                 <div id="PwdCheck" class="form-group">
                     	<div class="divInline"  style="margin-right: 10%;"><label>비밀번호 변경</label></div>
-                    	<div class="divInline">
-	                        <input id="userPwdOrgin" name="userPwdOrigin" placeholder="비밀번호" type="password"><br>
-	                        <input id="userPwdCheck" name="userPwd" placeholder="비밀번호 재확인" type="password">
+                    	<div class="divInline" style="width: 40%;">
+	                        <input id="userPwdOrgin" style="width: 300px;" name="userPwdOrigin" placeholder="비밀번호" type="password"><br>
+	                        <input id="userPwdCheck" style="width: 300px;" name="userPwd" placeholder="비밀번호 재확인" type="password">
 	                        <p id="pwCheckMsg"></p>
                         </div>
                         <div class="divInline"><button class="btn btn-info" id="pwdChange">비밀번호 변경</button></div>
@@ -39,18 +41,18 @@
     			
 				<div class="form-group">
 					<div class="divInline" style="margin-right: 10%;"><label>내 주소</label></div>
-					<div class="divInline">
+					<div class="divInline" style="width: 40%;">
 						<span class="spanLabel">
 							<span id = "originalAddr">${party[0].listContactPoint[0].info}</span>
-							<input type="text" id="postcode" placeholder="우편번호">
-							<input name="info" id="address"  placeholder="주소">
-							<input name="info" id="detailAddress" placeholder="상세주소">
+<!-- 							<input type="text" id="postcode" style="width: 300px;" placeholder="우편번호"> -->
+							<input name="info" id="address" style="width: 300px;" placeholder="주소"><br>
+							<input name="info" id="detailAddress" style="width: 300px;" placeholder="상세주소">
 						</span>
 					</div>
 					
 					<div class="divInline">
-						<button class="btn btn-info" type="button" id="findPost" onclick="execPostcode();">우편번호 찾기</button><br>
-						<div class="divInline" style="width: 120px;">
+						<button class="btn btn-info" type="button" id="findPost" onclick="execPostcode();" style="margin-bottom: 5px;">우편번호 찾기</button><br>
+						<div class="divInline" style="width: 40%;">
 							<button class="btn btn-info" id="addrChange">주소지 변경</button>
 							<button class="btn btn-info" id="lastAddrChange">변경하기</button>
 						</div>
@@ -65,9 +67,9 @@
 				
 				<div class="form-group">
 					<div class="divInline" style="margin-right: 10%;"><label>휴대폰 번호</label></div>
-					<div class="divInline">
+					<div class="divInline" style="width: 40%;">
 						<span id="originalMobileNum" class="spanLabel">${party[0].listContactPoint[1].info}</span>
-						<input name="info" id="mobileNum" placeholder="핸드폰 번호를 입력하세요">
+						<input name="info" id="mobileNum" style="width: 300px;" placeholder="핸드폰 번호를 입력하세요">
 					</div>
 					<div class="divInline">
 						<button class="btn btn-info" id="mobileNumChage">핸드폰 번호 변경</button>
@@ -78,9 +80,9 @@
 				
 				<div class="form-group">
 					<div class="divInline" style="margin-right: 10%;"><label>집 전화 번호</label></div>
-					<div class="divInline">
+					<div class="divInline" style="width: 40%;">
 						<span id="originalPhoneNum" class="spanLabel">${party[0].listContactPoint[2].info}</span>
-						<input name="info" id="PhoneNum" placeholder="집 전화 번호를 입력하세요">
+						<input name="info" id="PhoneNum" style="width: 300px;" placeholder="집 전화 번호를 입력하세요">
 					</div>
 					<div class="divInline">
 						<button class="btn btn-info" id="phoneNumChage">집전화 번호 변경</button>
@@ -110,7 +112,7 @@
 			</form>
 
 
-			<button id="btnJoin" type="button" class="btn btn-primary" onclick="location.href='/party/myPage'" >취소</button>
+			<button id="btnJoin" type="button" class="btn btn-primary" onclick="location.href='/party/modifyMember'" >취소</button>
 			<button id="btnRemoveMember" type="button"  class="btn btn-primary" onclick="location.href='/party/removeMember'">회원탈퇴</button>
 		</div>
 	</div>

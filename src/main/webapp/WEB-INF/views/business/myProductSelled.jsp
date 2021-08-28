@@ -10,30 +10,7 @@
 <jsp:useBean id="tablePrinter"
    class="www.dream.com.framework.printer.TablePrinter" />
 <style>
-#sliderBody {
-   float: left;
-   width: 20%;
-   height: 100px;
-   padding: 0px;
-   margin-right: 1%;
-}
 
-#header1 {
-   height: 100px;
-   border-bottom: 1px solid dimgrey;
-   box-sizing: border-box;
-   text-align: center;
-   line-height: 100px;
-   font-size: 1.5rem;
-}
-
-.slider {
-   float: left;
-   width: 50%;
-   padding: 10px;
-   height: 100%;
-   overflow: hidden;
-}
 </style>
 <%@ include file="../includes/subMenu.jsp"%>
 <div class="inline-blockk" style="width: 80%;">
@@ -42,7 +19,7 @@
       <!-- DataTales Example -->
       <div>
 
-         <div style="width:80vw; auto position:relative;">
+         <div>
 
             <form id="frmSearching" action="/product/readProduct" method="get">
             </form>
@@ -52,34 +29,6 @@
                
                   <div class="itemm_heading_title">
 
-                     <form id="frmSearching" action="/business/productList"
-                        method="get">
-                        <input type="text" name='searching' value="${page.searching}">
-                        <button id="btnSearch" class='btn btn-default'>검색</button>
-                        <button class="icon">
-                           <i class="fa fa-search"></i>
-                        </button>
-
-                        <button type="button" id="btnRegisterProduct" class="productBtn">상품등록</button>
-                        <input type="hidden" name="boardId" value="${boardId}">
-                        <input type="hidden" name="child" value="${child}"> 
-                        <input type="hidden" name="parentBoardName" value="${parentBoardName}">
-                        <input type="hidden" name="pageNumber" value="${page.pageNumber}"> 
-                        <input type="hidden" name="amount" value="${page.amount}"> 
-                        <input type="hidden" name="findSelledProdutList" value="0">
-                     </form>
-
-                     <form id="frmSelllist" action="/business/myProductUploaded" method="get">
-                        <input type="hidden" name="boardId" value="${boardId}">
-                        <input type="hidden" name="child" value="${child}"> 
-                        <input type="hidden" name="getMySelledList" value="0">
-                     </form>
-
-                     <form id="frmSelledList" action="/business/myProductSelled" method="get">
-                        <input type="hidden" name="boardId" value="${boardId}">
-                        <input type="hidden" name="child" value="${child}"> 
-                        <input type="hidden" name="getMySelledList" value="1">
-                     </form>
                      
                      <a><button id="btnSelllist" class="btn btn-default">판매중인 상품</button></a> 
                      <a><button id="btnSelledList" class="btn btn-default">판매완료한 상품</button></a>
@@ -98,18 +47,18 @@
                               </c:if>
                               
                         <div class="order-information-header">
-                           <div class="item-informationn info-top">상품정보</div>
+                           <div class="item-shoppingCart-informationn info-top">상품정보</div>
                            <div class="item-order-datee">판매일자</div>
                            <div class="item-order-trdatee">거래종류</div>
                            <div class="item-order-buyer">구매자</div>
-                           <div class="item-order-productFP">거래금액(수량)</div>
+                           <div class="item-order-productFP">거래금액</div>
                         </div>
                            
                               <c:forEach items="${productUploaded}" var="product" varStatus="status">        
                         <div class="order-inforamtion-bottom">
                            <!-- start -->
                            <div class="order-info-wrapp">
-                               <div class="item-informationn info-bottom">
+                               <div class="item-shoppingCart-informationn info-bottom">
                                    <a class='anchor4product' href="${product.id}" >
                                    <div class="item-info-imagee">
                                          <div class="slider" id="${product.id}">
@@ -125,52 +74,58 @@
                                     </div>  
                                        </div>
                                        <div class="item-info-text">
-                                           <p>판매자 : ${post.writer.userId}</p>
-                                           <p>상품명 : ${product.title}</p>
+                                           <p><b style="font-color:black;">${product.title}</b></p>
                                        </div>
                                        
                                        <input type="hidden" id="child" name="child" value="${productUploaded[status.index].board.parentId}">
                                        <input type="hidden" id="boardId" name="boardId" value="${productUploaded[status.index].board.id}">                              
-                              <input type="hidden" id="buyerId" name="buyerId" value="${productUploaded[status.index].trade.buyerId}">                      
-                              <input type="hidden" id="tradeDate" name="tradeDate" value="${productUploaded[status.index].trade.tradeDate}">
-                               <input type="hidden" id="productPrice" name="productPrice" value="${productUploaded[status.index].trade.productFinalPrice}">
-                                   </a>
-                               </div>
-                                  <c:if test="${productUploaded[status.index].board.parentId == 5}">   
-                                  <div class="item-order-datee">
-                                      <span>직접거래</span>
-                                  </div>
-                               </c:if>
-                               <c:if test="${productUploaded[status.index].board.parentId == 6}">   
-                                  <div class="item-order-datee">
-                                      <span>안전거래</span>
-                                  </div>
-                               </c:if>
-                               <c:if test="${productUploaded[status.index].board.parentId == 7}">   
-                                  <div class="item-order-datee">
-                                      <span>경매거래</span>
-                                  </div>
-                               </c:if>
-                               <div class="item-order-trdatee">
-                                   <span>${productUploaded[status.index].trade.tradeDate}</span>
-                               </div>
-                               <div class="item-order-buyer">
-                                   <span>${productUploaded[status.index].trade.buyerId}</span>
-                               </div>
-                               <div class="item-order-productFP">
-                                   <p>${productUploaded[status.index].trade.productFinalPrice}원</p>
-                                   <p></p>
-                               </div>
-                           </div>
-                           <!-- end -->
-                         </div>
-        <div>
-          <div><input type="radio" name="dateSelect" value="dayDuring">기간매출액조회</div>
-      </div>
-                       
-                        </c:forEach>
-                        </div>
-<div><canvas id="lookChartProduct" style="right: 50px; top: 350px; position:fixed;"></canvas></div>
+		                              <input type="hidden" id="buyerId" name="buyerId" value="${productUploaded[status.index].trade.buyerId}">                      
+		                              <input type="hidden" id="tradeDate" name="tradeDate" value="${productUploaded[status.index].trade.tradeDate}">
+		                               <input type="hidden" id="productPrice" name="productPrice" value="${productUploaded[status.index].trade.productFinalPrice}">
+		                                   </a>
+		                               </div>
+		                                  <c:if test="${productUploaded[status.index].board.parentId == 5}">   
+		                                  <div class="item-order-datee">
+		                                      <span>직접거래</span>
+		                                  </div>
+		                               </c:if>
+		                               <c:if test="${productUploaded[status.index].board.parentId == 6}">   
+		                                  <div class="item-order-datee">
+		                                      <span>안전거래</span>
+		                                  </div>
+		                               </c:if>
+		                               <c:if test="${productUploaded[status.index].board.parentId == 7}">   
+		                                  <div class="item-order-datee">
+		                                      <span>경매거래</span>
+		                                  </div>
+		                               </c:if>
+		                               <div class="item-order-trdatee">
+		                                   <span>${productUploaded[status.index].trade.tradeDate}</span>
+		                               </div>
+		                               <div class="item-order-buyer">
+		                                   <span>${productUploaded[status.index].trade.buyerId}</span>
+		                               </div>
+		                               <div class="item-order-productFP">
+		                                   <p>${productUploaded[status.index].trade.productFinalPrice}원</p>
+		                                   <p></p>
+		                               </div>
+		                           </div>
+		                           <!-- end -->
+		                         </div>
+		                       
+		                        </c:forEach>
+		                        </div>
+							<div id = "defaultChart">
+									<button class="btn btn-success" style="right: 125px; top: 500px; position:fixed;">기간별 현황 조회 하기</button>
+									<p style="right: 100px; top: 300px; position:fixed;">* 기본 7일간의 판매 현황 조회 *</p>
+ 								    <canvas id="lookChartProduct" style="right: 50px; top: 350px; position:fixed;"></canvas>
+							</div>
+							
+<!-- 							<div id = "duringChart"> -->
+<!-- 								<p style="right: 100px; top: 300px; position:fixed;">* 기간별 판매 현황 조회 *</p> -->
+<%-- 							   <canvas id="duringPurchase" style="right: 50px; top: 350px; position:fixed;"></canvas> --%>
+<!-- 							</div> -->
+							
                       </section> 
                       </div>
 
@@ -181,6 +136,19 @@
       </div>
    </div>
 </div>
+
+                     <form id="frmSelllist" action="/business/myProductUploaded" method="get">
+                        <input type="hidden" name="boardId" value="${boardId}">
+                        <input type="hidden" name="child" value="${child}"> 
+                        <input type="hidden" name="getMySelledList" value="0">
+                     </form>
+
+                     <form id="frmSelledList" action="/business/myProductSelled" method="get">
+                        <input type="hidden" name="boardId" value="${boardId}">
+                        <input type="hidden" name="child" value="${child}"> 
+                        <input type="hidden" name="getMySelledList" value="1">
+                     </form>
+
 <%@include file="../includes/footer.jsp"%>
 <script src="\resources\js\util\utf8.js"></script>
 <script src="\resources\js\imgList\imgList.js"></script>
@@ -199,67 +167,8 @@
            $('#dayPurchase').hide();
         }
      });   
-   
-   $("#btnRegisterProduct").on("click", function(e) {
-      $("#productModal").modal("show");               
-   });
-   
-   $("#btnCloseModal").on("click", function(e) {
-      $("#productModal").modal("hide");
-   });
-      
-    var result = '<c:out value="${result}"/>';
-   
-   checkModal(result); // checkModal 함수 호출
-   
-   history.replaceState({}, null, null);
-
-   function checkModal(result){
-      if (result === '' || history.state){ 
-         return;
-      }
-      if (result.length == ${PostVO.ID_LENGTH}) { 
-
-         $("#modalBody").html("상품 " + result + "번으로 등록되었습니다.");
-      } else {
-         $("#modalBody").html("상품" + result + "하였습니다.");
-      }
-      
-      $("#myModal").modal("show");
-   }
-   
-   /*05.31 검색에 관한 처리 -> 06.04 frmPaging 기능 새로 작성하기*/
+ 
    var frmSearching = $('#frmSearching');
-   $('#btnSearch').on('click', function(eInfo) {
-      eInfo.preventDefault();
-      
-      if ($('input[name="searching"]').val().trim() === '') {
-         alert('검색어를 입력하세요');
-         return;
-      }
-      // 신규 조회 이므로 1쪽을 보여줘야 합니다.
-      $("input[name='pageNumber']").val("1");
-      
-      frmSearching.submit();
-   });
-      //거래완료 글 페이징처리
-      var frmSelledproductList = $('#frmSelledproductList');
-      $('#btnSelledproductList').on('click', function(eInfo) {
-           eInfo.preventDefault();
-
-           //신규 조회이므로 1쪽을 보여줘야합니다
-           $("input[name='pageNumber']").val("1");
-
-           frmSelledproductList.submit();
-        });      
-   /*Paging 처리에서 특정 쪽 번호를 클릭하였을때 해당 page의 정보를 조회하여 목록을 재출력 해줍니다. */
-   var frmPaging = $('#frmPaging');
-   $('.page-item a').on('click', function(eInfo) {
-      eInfo.preventDefault();
-      $("input[name='pageNumber']").val($(this).attr('href')); //여기 val이 중요하다. Click이 일어난 곳=this 거기가 href 처리해둔곳
-      frmSearching.submit();
-   });
-   
    
    $('.anchor4product').on('click', function(e) {
       e.preventDefault();
