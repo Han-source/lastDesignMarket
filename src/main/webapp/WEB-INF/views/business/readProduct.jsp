@@ -66,6 +66,8 @@
                            <span>채팅하기</span>
                            <i class="fas fa-comment-dots"></i>
                         </button>
+
+                        
                         <c:if test="${child ne 7}">
                            <button data-oper='nego' class="product_chat">
                               <span>가격제안</span>
@@ -92,6 +94,7 @@
                            </button>
                         </c:if>
                      </c:if>
+                     
                      <sec:authentication property="principal" var="customUser" />
                      <c:if test="${customUser.curUser.userId eq post.writer.userId}">
                         <button data-oper='modify' class="product_chat">
@@ -100,6 +103,7 @@
                      </c:if>   
                      </div>   
                   </sec:authorize>
+                  
                   <c:if test="${child == 7}">                  
                   <div class = "best_auction_price">
                          <h5>최고경매가</h5> 

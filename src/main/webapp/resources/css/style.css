@@ -3112,6 +3112,7 @@ cursor: pointer;
 
 .itemm_grid .itemm_img{
   width: 100%;
+  height: 70%;
   position: relative;
   background-color: pink;
   object-fit: cover;

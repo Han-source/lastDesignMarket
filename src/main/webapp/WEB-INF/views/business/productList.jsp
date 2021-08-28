@@ -274,7 +274,7 @@ h3 {
    
    
    function productImgListFunction(attachVOInJson, uuid, id){
-      imgService.productImgList(attachVOInJson, uuid, id, 271, 316);
+      imgService.productImgList(attachVOInJson, uuid, id, 271, 244);
    }
 
    function getConvertWons(price, state){
