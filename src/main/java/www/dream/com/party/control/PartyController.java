@@ -220,11 +220,22 @@ public class PartyController implements AuthenticationSuccessHandler, AccessDeni
 			curUser = cu.getCurUser();
 			model.addAttribute("partyId", curUser.getUserId());
 			model.addAttribute("childBoardList", boardService.getChildBoardList(4));
-			List<PostVO> a = postService.findProductShoppingCart(curUser.getUserId());
 			model.addAttribute("shopCart", postService.findProductShoppingCart(curUser.getUserId()));
 		}
-
 	}
+	
+	@PostMapping("removeShopppingCart")
+	public String removeShopppingCart(@AuthenticationPrincipal Principal principal, String productId) {
+		Party curUser = null;
+		if (principal != null) {
+			UsernamePasswordAuthenticationToken upat = (UsernamePasswordAuthenticationToken) principal;
+			CustomUser cu = (CustomUser) upat.getPrincipal();
+			curUser = cu.getCurUser();
+			postService.removeShoppingCart(curUser.getUserId(), productId);		
+		}
+		return "redirect:/party/shoppingCart";
+	}
+	
 
 	/**
 	 * 로그인 성공 시 각 사용자의 권한 유형에 따라 개인화된 화면을 연동 시켜주기 위한 기능을 이곳에서 개발합니다.

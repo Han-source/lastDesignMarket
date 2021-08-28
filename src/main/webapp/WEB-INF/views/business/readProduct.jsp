@@ -101,9 +101,9 @@
                            <span>수정</span>
                         </button>
                      </c:if>   
-                     </div>   
-                  </sec:authorize>
-                  
+	                  </sec:authorize>
+                     </div>
+                        
                   <c:if test="${child == 7}">                  
                   <div class = "best_auction_price">
                          <h5>최고경매가</h5> 

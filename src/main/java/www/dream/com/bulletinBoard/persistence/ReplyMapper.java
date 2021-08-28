@@ -81,7 +81,10 @@ public interface ReplyMapper { // 추후 Data를 가져오기 위해서 Interfac
 	// 내가 등록한 상품 목록 조회하기.
 	public List<PostVO> getMyProductUploaded(@Param("boardId") int boardId, @Param("writerId") String writerId,
 			@Param("cri") Criteria cri);
-
+	
+	//장바구니 등록된것 삭제
+	public void removeShoppingCart(@Param("userId") String userId, @Param("productId") String productId);
+	
 	/** --------------------------- 검색 처리 관련 함수 정의 영역-------------------------- */
 	// 초기 화면 띄울때 활용
 	public List<PostVO> getListByHashTag(@Param("boardId") int boardId, @Param("child") int child,

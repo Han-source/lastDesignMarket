@@ -376,7 +376,13 @@ select distinct p.*, w.name w_name, w.descrim w_descrim, sp.product_price tp_pro
          and p.writer_id = w.user_id
      ORDER BY p.id DESC
    </select>
-      
+   
+      <!-- public void removeShoppingCart(@Param("userId") String userId, @Param("productId") String productId); -->
+      <delete id="removeShoppingCart">
+      		delete from s_shopping_bascket
+      		 where user_id = #{userId}
+      		  and product_id = #{productId}
+      </delete>
 <!-- ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆좋아요 처리 관련 함수 정의 영역☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆-->
 
 <!-- public void upcheckLike(@Param("id") String id, @Param("userId") String userId); -->

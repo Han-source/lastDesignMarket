@@ -206,6 +206,12 @@ public class PostService {
 
 	}
 
+	//장바구니 등록된것 삭제
+	public void removeShoppingCart(String userId, String productId) {
+		replyMapper.removeShoppingCart(userId, productId);
+	}
+
+	
 	/* 게시글 조회수 증가 처리 */
 	public int cntPlus(String id) {
 		return replyMapper.cntPlus(id);

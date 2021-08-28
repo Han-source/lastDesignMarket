@@ -26,17 +26,17 @@
             <div>
                <section class="order-informationn-table">
                     <div class="order-information-header">
-                        <div class="item-shoppingCart-informationn cart-info-top">상품정보</div>
+                        <div class="item-informationn info-top">상품정보</div>
                         <div class="item-order-product-name">판매자</div>
                         <div class="item-order-numberr">등록일</div>
                         <div class="item-order-amountt">상품금액</div>
-                        
+                        <div class="item-order-buyer">장바구니에서 삭제</div>
                     </div>
                   <c:forEach items="${shopCart}" var="product" varStatus="status">                                           
                         <div class="order-inforamtion-bottom">
                            <!-- start -->
                            <div class="order-info-wrapp">
-                               <div class="item-shoppingCart-informationn info-bottom">
+                               <div class="item-informationn info-bottom">
                                    <a class='anchor4product' href="${product.id}" >
                                    <div class="item-info-imagee" >
                                          <div class="slider" id="${product.id}" >
@@ -55,32 +55,38 @@
                                            <p>상품명 : ${product.title}</p>
                                        </div>
                                        <input type="hidden" id="childId" name="child" value="${shopCart[status.index].board.parentId}">
-                                       <input type="hidden" id="boardId" name="boardId" value="${shopCart[status.index].board.id}">                              
+                                       <input type="hidden" id="boardId" name="boardId" value="${shopCart[status.index].board.id}">
+                                       
+                                       <form id="frmRemoveShopCart" action="/party/removeShopppingCart" method="post">
+	                                       <input type="hidden" id="productId" name="productId" value="${product.id}">
+	                                       <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+                                       </form>
                                    </a>
                                </div>
                                <div class="item-order-datee">
                                    <span>${shopCart[status.index].writer.userId}</span>
                                </div>
                                <div class="item-order-numberr">
-                           <span>${shopCart[status.index].registrationDate}</span>
+                           			<span>${shopCart[status.index].registrationDate}</span>
                                </div>
                                <div class="item-order-amountt" id="${status.index}">     
                                     <span>
                                     <script>
-                                    $(document).ready(function() {
-                                    	getConvertWons(${shopCart[status.index].product.productPrice}, '#${status.index}');
-                                    });
-                           </script>
+	                                    $(document).ready(function() {
+	                                    	getConvertWons(${shopCart[status.index].product.productPrice}, '#${status.index}');
+	                                    });
+                           			</script>
                                     
                                     </span>
+                               </div>
+                               <div class="item-order-buyer">
+                           			<button class="btn btn-danger" id="btnRemoveShopCart">삭제</button>
                                </div>
 
                            </div>
                            <!-- end -->
                          </div>
                         <div class="card-body" style="float: left; width: 50%; padding:10px;">
-
-                              
                        
                            <br>
 
@@ -188,6 +194,12 @@
       frmSearching.attr('method', 'get');
       frmSearching.submit();
    });
+   
+   var frmRemoveShopCart = $('#frmRemoveShopCart');
+   $('#btnRemoveShopCart').on("click", function() {
+	   frmRemoveShopCart.submit();
+	});
+   
 });
    
    

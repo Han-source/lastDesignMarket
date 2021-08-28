@@ -2908,12 +2908,12 @@ cursor: pointer;
 }
 
 .auctionn_button{
-  display: flex;
+/*   display: flex; */
   flex-direction: row;
   margin: 1.5rem 0;
 }
 .auctionn_button button{
-  width: 200px;
+  width: 170px;
   height: 40px;
   border: 1.5px solid #ddd;
   border-radius: 5px;
@@ -2926,7 +2926,6 @@ cursor: pointer;
   background-color: #fff;
   color: #12263a;
 }
-
 .auctionn_button button:hover{
   opacity: 0.9;
   background-color: #B8E9FF;
