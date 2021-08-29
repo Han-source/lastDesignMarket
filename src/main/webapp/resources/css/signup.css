@@ -109,6 +109,23 @@ h3 {
 
 /* FORM TYPOGRAPHY*/
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  background-color: #E8F0FE !important;
+  color:white;
+}
+
+input:focus { background-color: #E8F0FE !important; }
+
+select:focus { background-color: #E8F0FE !important; }
+
 input[type=button], input[type=submit], input[type=reset]  {
   background-color: #56baed;
   border: none;
@@ -348,6 +365,7 @@ input{
     border:none;
     border-bottom: solid 1px #ccc;
     padding:20px 0px 5px 0px;
+    margin: 15px;
     font-size:16pt;
     width:65%;
     text-align: center;
@@ -398,6 +416,23 @@ input[type=radio]{
 input[type=option]{
 /*     display: inline-block; */
     width: 6%;
+}
+
+select{
+   background-color:#f6f6f6;
+   border:none;
+   font-size: 14pt;
+   text-align:center;
+   color:black;
+   width:1400px auto;
+   border-radius: 5px;
+   border-color: E8F0FE;
+   position: relative;
+   text-align-last: center;
+   text-align: center;
+   -ms-text-align-last: center;
+   -moz-text-align-last: center;
+   
 }
 
 .modal_wrap{
@@ -470,13 +505,13 @@ input[type=option]{
 
 #findPost{
     position: absolute;
-    top: 5px;
+    top: -10px;
     right: -28px;
     border: none;
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
-    display:block;
+    display:inline-block;
     font-size: 1.5rem;
 }
 
@@ -612,11 +647,10 @@ input[type=option]{
   margin-top: 15px;
   margin-bottom : 15px;
   -webkit-border-radius: 10px 10px 10px 10px;
-  padding-top: 5px;
   width: 65%;
+  height: 51.77px;
   border-radius: 10px 10px 10px 10px;
   background: #f6f6f6;
-  padding: 15px;
   font-family: Dotum,'돋움',Helvetica,sans-serif;
   display: inline-block;
   text-align: center;
@@ -675,8 +709,8 @@ input[type=option]{
 
 .fa-map-pin{
    position: absolute;
-    top: 114px;
-    left: 180px;
+    top: 84px;
+    left: 178px;
     border: none;
     color: black;
     text-align: center;

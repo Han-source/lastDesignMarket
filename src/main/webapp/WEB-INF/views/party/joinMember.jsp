@@ -32,45 +32,43 @@
             <form id="frmMember" method="post" action="/party/joinMember">
                     <div class="comment"><span>회원정보를 입력해주세요.</span></div>
              <div class="form-group inputId"><i class="far fa-id-card"></i>
-                    <input id="userId" name="userId"  placeholder="아이디를 입력해주세요." class="form-control" required>
+                    <input id="userId" name="userId" type="text" onchange="inputFilled()" placeholder="아이디를 입력해주세요." class="form-control" required>
                     <p id="idCheckMsg"></p>
-                </div>
+                </div> 
                     <div id="PwdCheck" class="form-group pwdGroup"><i class="fas fa-lock"></i>
-                        <input id="userPwdOrgin" name="userPwdOrigin" placeholder="비밀번호" type="password" class="form-control" required>
-                        <input id="userPwdCheck" name="userPwd" placeholder="비밀번호 재확인" type="password" class="form-control" required>
+                        <input id="userPwdOrgin" name="userPwdOrigin" placeholder="비밀번호" type="password"  onchange="inputFilled()" class="form-control"  required>
+                        <input id="userPwdCheck" name="userPwd" placeholder="비밀번호 재확인" type="password" onchange="inputFilled()"  class="form-control" required>
                         <p id="pwCheckMsg"></p>
                       </div>
                       <div class="form-group nameBlock"><i class="fas fa-user-edit"></i>
-                    <input  type="text" name="name" placeholder="이름을 입력해주세요." class="form-control" required>
+                    <input  type="text" onchange="inputFilled()"  name="name" placeholder="이름을 입력해주세요." class="form-control" required>
                     <!-- rows: 몇줄까지 화면에 보이게 할건지 -->
                 </div>
          <!-- name 중복 되는 것인지 아닌지 -->
                         <div class="form-group birthDtBox">
-                    <input id="birthDt" type="date" pattern="yyyy-MM-dd" class="form-control" placeholder="생년월일" value='1980-01-01' name="birthDate"  required>
+                    <input id="birthDt" type="date"  onchange="inputFilled()" pattern="yyyy-MM-dd" class="form-control" placeholder="생년월일" value='1980-01-01' name="birthDate"  required>
                 </div>
                 <!-- gender-select -->
                   <div class="form-group gender"> <i class="fas fa-venus-double"></i>
-                      <label>남자<input type="radio"  class="form-control" name="male" value="1" ></label>
-                      <label>여자<input type="radio"  class="form-control" name="male" value="0"></label>
+                  
+                  <select type="select"onchange="selectFilled()" style="width:100%; height:100%; auto "><option type="option" disabled selected hidden; class="form-control">성별을 선택해주세요</option><option type="option" onchange="inputFilled()"  class="form-control" name="male" value="1">남자</option><option type="option"  onchange="inputFilled()" class="form-control" name="male" value="0">여자</option></select>
+<!--                       <label>남자<input type="radio"  class="form-control" name="male" value="1" ></label> -->
+<!--                       <label>여자<input type="radio"  class="form-control" name="male" value="0"></label> -->
                 </div>
                 <br>
-                
          <c:forEach items="${listCPType}" var="contactPointType" varStatus="status">
          <c:if test="${status.index eq 0}">
             <div class="postBox">
-               <div class="postcodebtn">
+               <div class="postcodebtn" >
                <button id="findPost" type="button" onclick="execPostcode()"><i class="far fa-envelope-open"></i></button>
                </div>
                <%-- <label>${contactPointType.description}</label> --%>
                <i class="fas fa-map-pin"></i>
-               <br>
-               <br>
-               <br>
-               <br>
                <p id="postcode" placeholder="우편번호">
-               <input type="hidden" name="listContactPoint[${status.index}].contactPointType" value="${contactPointType.cpType}" class="form-control" readonly required>
-               <input name="listContactPoint[${status.index}].info" id="address"  class="form-control" placeholder="주소" required>
-               <input name="listContactPoint[${status.index}].info" id="detailAddress"  class="form-control" placeholder="상세주소" required>
+               <input type="hidden"  name="listContactPoint[${status.index}].contactPointType" value="${contactPointType.cpType}" class="form-control" readonly required>
+               
+               <input name="listContactPoint[${status.index}].info" id="address"  type="text" onchange="inputFilled()" class="form-control" placeholder="주소" required>
+               <input name="listContactPoint[${status.index}].info" id="detailAddress" type="text" onchange="inputFilled()"   class="form-control" placeholder="상세주소" required>
 
                
                <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
@@ -86,14 +84,14 @@
          <c:if test="${status.index eq 1}">
             <div class="form-group phoneNum"><i class="fas fa-phone"></i>
                <input type="hidden" name="listContactPoint[${status.index}].contactPointType" value="${contactPointType.cpType}" class="form-control" readonly required>
-               <input type="text" id="addressTelNum" onkeyup="validation1()" name="listContactPoint[${status.index}].info"  class="form-control" maxlength="11" placeholder="자택 전화번호" required>
+               <input type="text" onchange="inputFilled()"  id="addressTelNum" onkeyup="validation1()" name="listContactPoint[${status.index}].info"  class="form-control" maxlength="11" placeholder="자택 전화번호" required>
                <section class="result1" style="color:red;"></section>
          </div>
          </c:if>
          <c:if test="${status.index eq 2}">
             <div class="form-group phoneNum"><i class="fas fa-mobile-alt"></i>
                <input type="hidden" name="listContactPoint[${status.index}].contactPointType" value="${contactPointType.cpType}" class="form-control" readonly required>
-               <input type="text" id="phoneNumber" onkeyup="validation2()" name="listContactPoint[${status.index}].info"  class="form-control" placeholder="휴대전화번호" required>
+               <input type="text" onchange="inputFilled()" id="phoneNumber" onkeyup="validation2()" name="listContactPoint[${status.index}].info"  class="form-control" placeholder="휴대전화번호" required>
                <section class="result2" style="color:blue;"></section>
             <!-- 여긴 중요한게, 객체를 만들어주는 부분이다. 제목을 넣는 부분 -->
             </div>
@@ -101,7 +99,7 @@
          </c:forEach>      
                 <input type="hidden" name = "descrim" value="${memberType.partyType}" required>
                 <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}' required>
-                <button id="btnJoin" class="btn btn-primary" onclick="checkAllJoinMember(this.form).submit()" type="submit">회원가입</button>
+                <button id="btnJoin" class="btn btn-primary" onclick="checkAllJoinMember(this.form).submit()" type="button">회원가입</button>
                 </form>
             </div>
         
@@ -123,6 +121,7 @@
 
    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript">
+    
     $(document).ready(function() {
         var csrfHN = "${_csrf.headerName}";
         var csrfTV = "${_csrf.token}";
@@ -297,11 +296,6 @@
             form.birthDt.focus();
             return ;
         }
-        if(form.postcode.value == "") {
-            alert('우편번호를 입력하세요');
-            form.postcode.focus();
-            return ;
-        }
         if(form.address.value == "") {
             alert('주소를 입력하세요');
             form.address.focus();
@@ -330,9 +324,6 @@
         alert(form.userId.value + '(' + form.name.value + ") 님의 \n 회원가입이 완료되었습니다.");
         
     }
-    
-    
-    
     </script>
     
     <script>
@@ -351,6 +342,30 @@
     document.querySelector('.modal_close').addEventListener('click', offClick);
  
 };
+ 
+ 
+function inputFilled(){
+    const input = document.querySelector('input');
+    if (input.value !== ""){
+        input.style.backgroundColor = "#E8F0FE";
+    } else{
+        input.style.backgroundColor = "";
+    }
+}
+inputFilled();
+
+   const select = document.querySelector('select');
+function selectFilled(){
+        if (select.value !== ""){
+            select.style.backgroundColor="#E8F0FE";
+        } else{
+            select.style.backgroundColor = "";
+        }
+    }
+
+    select.addEventListener("click", () => {
+       selectFilled();
+    })
 </script>
 
 </body>
