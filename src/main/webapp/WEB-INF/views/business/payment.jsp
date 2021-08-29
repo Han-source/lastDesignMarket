@@ -51,7 +51,7 @@ table {
     <!--상품 결제 header -->
     <section class="payment_wrap">
         <div class="payment_box">
-            <h3>택배거래, 번개페이로 결제합니다</h3>
+            <h3>택배거래, 카카오페이로 결제합니다</h3>
                <div class="payment_list">
                <!-- 이미지  -->
                   <div class="payment_img" id="imageeDiv">
@@ -118,12 +118,11 @@ table {
             </div>
             
             <div class="points_wrap">
-                <h3>포인트</h3>
-                <div class="remaining_points">
-                    <span></span>
+                <h3>포인트</h3>      
+                     <input type="number" id="myPoints" name="myPoints" placeholder="포인트를 입력해주세요.">
                     <button>전액사용</button>
                     <br>
-                </div>
+                
                 <p class="points_available">
                     <span>사용 가능한 플릭스 포인트 : </span>
                     <span>${loginPartyInfo.point}포인트</span>
@@ -147,6 +146,10 @@ table {
                                   <span class="righttt">${product.productPrice - negoBuyer.discountPrice}원</span>
                              </c:otherwise>
                          </c:choose>                            
+                        </p>
+                        <p class="point_aamount">
+                            <span class="lefttt">할인 포인트</span>
+                            <span class="righttt">5000 포인트</span>
                         </p>
                         <p class="shipping_feeee">
                             <span class="lefttt">배송비</span>
@@ -175,7 +178,6 @@ table {
                <input type="hidden" name="buyerId" value="${buyerId}">
                <input type="hidden" name="boardId" value="${boardId}">
                 <input type="hidden" name="child" value="${child}">
-<!--                 <input type="hidden" name="points" value="45"> -->
                <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
             </form>
             
@@ -192,11 +194,7 @@ function appendFunction(attachVOInJson, postId){
    imgService.append(attachVOInJson, false, postId);
 }
 
-// $(document).ready(function() {
-// 	var earnPoints = Math.floor(${product.productPrice} * 0.01);
-	
-// 	$('input[name="points"]').attr("value", earnPoints);
-// });
+var mypoints= $('#myPoints').val();
 
 $('#userNameSelection').change(function() {
    var addr;

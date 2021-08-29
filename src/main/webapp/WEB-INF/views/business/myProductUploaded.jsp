@@ -15,9 +15,7 @@
       <p></p>
       <!-- DataTales Example -->
       <div>
-
          <div>
-
             <form id="frmSearching" action="/product/readProduct" method="get">
             </form>
             <!--  내가 결제한 상품 목록만 조회  -->
@@ -27,7 +25,6 @@
                   <div class="itemm_heading_title">
                      <a><button id="btnSelllist" class="btn btn-default">판매중인 상품</button></a> 
                      <a><button id="btnSelledList" class="btn btn-default">판매완료한 상품</button></a>
-
                      <div>
             <section class="order-informationn-table">
                     <div class="order-information-header">
@@ -91,9 +88,7 @@
                                </div>
                            </div>
                            <!-- end -->
-                         </div>
-     
-                       
+                         </div>                            
                         </c:forEach>
                         </section>   
                         </div>

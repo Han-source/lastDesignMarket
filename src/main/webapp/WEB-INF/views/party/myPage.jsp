@@ -24,7 +24,12 @@
         <!-- DataTales Example -->
                 <div class="form-group idBox">
                     <div class="divInline"  style="margin-right: 10%;"><label>사용자 아이디</label></div>
-                    <div class="divInline"><span class="spanLabel">${party[0].userId}</span></div>
+                    <div class="divInline"><span class="spanLabel" >${party[0].userId}</span></div>
+                </div>
+    			<hr>
+    			 <div class="form-group">
+                    <div class="divInline"  style="margin-right: 10%;"><label>등급</label></div>
+                    <div class="divInline"><span class="spanLabel" id="tier"></span></div>
                 </div>
     			<hr>
 				
@@ -67,3 +72,20 @@
 		</div>
 	</div>
     <%@include file="../includes/footer.jsp"%>
+    
+   <script>
+   if(${party[0].point} <= 1000){
+   $('#tier').html("시민");
+   
+   }else if(${party[0].point} > 1000 && ${party[0].point} <= 5000){
+   $('#tier').html("상인");
+	   
+   }else if(${party[0].point} > 5000 && ${party[0].point} <= 15000){
+   $('#tier').html("귀족");
+	   
+   }else {
+   $('#tier').html("왕족");
+	   
+   }
+   
+   </script>

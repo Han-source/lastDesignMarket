@@ -53,6 +53,8 @@
          </div>
       </sec:authorize>
       <sec:authorize access="isAuthenticated()">
+      <p style="float: right;"> 안녕하세요 시민 ㅁㅁㅁ 님! </p> 
+      
       <div class="logoutt" style="height: 100%;">
       <div>
             <form action="/" method="POST">
@@ -66,6 +68,7 @@
       <nav class="main-menu2">
          <ul class="sub-menu">
             <sec:authorize access="isAuthenticated()">
+
                <li>
                     <img src="\resources\img\icons\messicon.png" style="width:25px; height:25px; margin-right: 50px;"> 
                    <ul class="sub-menu2" id="boxTable"> </ul>

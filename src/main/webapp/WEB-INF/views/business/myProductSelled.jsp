@@ -109,16 +109,22 @@
                         <canvas id="lookChartProduct" style="right: 50px; top: 350px; position:fixed;"></canvas>
                      </div>
                      
-                     <div id = "duringChart">
+                     <div id = "duringChart"  style="right: 100px; top: 300px; position:fixed;">
                         <p style="right: 100px; top: 300px; position:fixed;">* 기간별 판매 현황 조회 *</p>
-                        <input id="firstDate" type="date" pattern="yyyy-MM-dd"name="firstDate" style="right: 110px; top: 600px; position:fixed;">
-                            <input id="lastDate" type="date" pattern="yyyy-MM-dd" name="lastDate" style="right: 110px; top: 650px; position:fixed;">
-                            <button id="betweenDatebtn" class="btn btn-warning" type="button" style="right: 110px; top: 700px; position:fixed;">조회</button>
+                           
+                           <span style="right: 250px; top: 600px; position:fixed;">시작일자</span>
+                           <input id="firstDate" type="date" pattern="yyyy-MM-dd"name="firstDate" style="right: 80px; top: 600px; position:fixed;">
+                            
+                            <span style="right: 250px; top: 650px; position:fixed;">끝나는일자</span>
+                            <input id="lastDate" type="date" pattern="yyyy-MM-dd" name="lastDate" style="right: 80px; top: 650px; position:fixed;">
+                            <button class="btn btn-info" id="searchDefaultChart" style="right: 150px; top: 700px; position:fixed;">7일간 현황보기</button>   
+                            <button id="betweenDatebtn" class="btn btn-warning" type="button" style="right: 70px; top: 700px; position:fixed;">조회</button>
                          <canvas id="selledChart" style="right: 50px; top:350px; position:fixed;"></canvas>
+                         
                      </div>
                      
                       </div>
-
+a
 
                         </div> 
                </div>
@@ -153,6 +159,11 @@
    $('#searchDuringChart').on('click', function(){
       $('#duringChart').show();
       $('#defaultChart').hide();
+   });
+   
+   $('#searchDefaultChart').on('click', function(){
+     $('#duringChart').hide();
+     $('#defaultChart').show();
    })
    
    var a = window.location.search;

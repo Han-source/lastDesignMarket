@@ -132,7 +132,6 @@ public class BusinessService {
          attachFileVOMapper.insertAttachFile2ProductId(post.getId(), listAttachFileVO);
       }
    }
-
    /* 경매 상품 등록 가능 */
    @Transactional
    public void insertAuctionProduct(ProductVO productVO, PostVO post, TradeConditionVO tradeCondition, BoardVO board)
