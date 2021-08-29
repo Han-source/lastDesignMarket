@@ -87,14 +87,17 @@ h3 {
       <div style="margin: 0 auto; width: 60%;">
          <hr style="border: solid 2px #B0C4DE;"/>
       </div>
-      <div class="card-body">
+      <div style="width: 100%;">
          <!--  거래 완료된 상품리스트  -->         
          <form id="frmSelledproductList" action="/business/productList" method="get">
             <input type="hidden" name="boardId" value="${boardId}">
                <input type="hidden" name="child" value="${child}">
                <input type="hidden" name="findSelledProdutList" value="1">
             </form>
-         <div class="itemm_wrapper">
+            <div class="sideImageBanner" style="width: 16.2%; float: left;">
+				<p></p>
+         </div>
+         <div class="itemm_wrapper" style="width: 65%; float: left;">
               <div class="itemm_container" >
                  <div class="itemm_heading_title" style="margin-left: 10%;">
                       
@@ -147,10 +150,13 @@ h3 {
                   </c:forEach>
                </div>
             </div>   
+            <div class='fa-pull-right'>${page.pagingDiv}</div>
          </div>
+         	 <div class="sideImageBanner" style="width: 10%; float: left; margin-left: 5%; margin-top: 15%;">
+	         	<img src="/resources/img/logos/sideBannerBoard4.png" style="height: 1100px;">
+	         </div>
             <!-- Paging 처리 05.27 -->
             <!-- EL로 처리, Criteria.java에 있음  -->
-            <div class='fa-pull-right'>${page.pagingDiv}</div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
                aria-labelledby="myModalLabel" aria-hidden="true">
@@ -191,7 +197,6 @@ h3 {
             <!-- /.modal -->
 
          </div>
-
 <%@include file="../includes/footer.jsp"%>
 <script src="\resources\js\util\utf8.js"></script>
 <script src="\resources\js\util\dateFormat.js"></script>

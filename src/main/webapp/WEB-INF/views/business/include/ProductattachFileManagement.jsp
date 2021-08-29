@@ -17,7 +17,7 @@
    </li>
    </div>
          <div class="form-group" style="width: 100%; height: 400px;">
-	         <div id="uploadDiv" style="width: 40%; display: inline-block; float: left;">
+	         <div id="uploadDiv" style="width: 40%; display: inline-block; float: left; padding-left: 1%;">
 	            <label> 
 	            <img src="\resources\img\icons\enrollimgtext.png">
 	            <input type="file" id="inFiles"  name="upLoadFile"  style="display: none;" multiple>

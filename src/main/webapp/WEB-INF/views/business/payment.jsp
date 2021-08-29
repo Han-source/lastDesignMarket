@@ -117,17 +117,6 @@ table {
                 </div>
             </div>
             
-            <div class="points_wrap">
-                <h3>포인트</h3>      
-                     <input type="number" id="myPoints" name="myPoints" placeholder="포인트를 입력해주세요.">
-                    <button>전액사용</button>
-                    <br>
-                
-                <p class="points_available">
-                    <span>사용 가능한 플릭스 포인트 : </span>
-                    <span>${loginPartyInfo.point}포인트</span>
-                </p>
-            </div>
             <div class="payment_amountt">
                 <h3>결제금액</h3>
                 <div class="payment_amount_box">
@@ -146,10 +135,6 @@ table {
                                   <span class="righttt">${product.productPrice - negoBuyer.discountPrice}원</span>
                              </c:otherwise>
                          </c:choose>                            
-                        </p>
-                        <p class="point_aamount">
-                            <span class="lefttt">할인 포인트</span>
-                            <span class="righttt">5000 포인트</span>
                         </p>
                         <p class="shipping_feeee">
                             <span class="lefttt">배송비</span>
@@ -194,7 +179,7 @@ function appendFunction(attachVOInJson, postId){
    imgService.append(attachVOInJson, false, postId);
 }
 
-var mypoints= $('#myPoints').val();
+
 
 $('#userNameSelection').change(function() {
    var addr;
@@ -311,4 +296,3 @@ $('#kakao_trade').click(function () {
     });
 });
 </script>
-

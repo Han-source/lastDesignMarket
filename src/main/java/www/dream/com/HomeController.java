@@ -1,6 +1,5 @@
 package www.dream.com;
 
-import java.awt.dnd.DropTargetListener;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import www.dream.com.bulletinBoard.service.BoardService;
 import www.dream.com.framework.springSecurityAdapter.CustomUser;
 import www.dream.com.party.model.Party;
+import www.dream.com.party.service.PartyService;
 
 /**
  * Handles requests for the application home page.
@@ -26,7 +26,8 @@ public class HomeController {
 	
 	@Autowired
 	private BoardService boardService;
-	
+	@Autowired // 10. Autowired @ 생성
+	private PartyService partyService; // 9. PartyClass와 이어줄거고
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -48,6 +49,7 @@ public class HomeController {
 			curUser = cu.getCurUser();
 			model.addAttribute("userId", curUser.getUserId());
 			model.addAttribute("descrim", curUser.getDescrim());
+			model.addAttribute("party", partyService.getList(curUser));
 		}
 		return "home";
 	}

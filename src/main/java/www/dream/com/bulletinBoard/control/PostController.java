@@ -32,6 +32,7 @@ import www.dream.com.business.service.BusinessService;
 import www.dream.com.common.dto.Criteria;
 import www.dream.com.framework.springSecurityAdapter.CustomUser;
 import www.dream.com.party.model.Party;
+import www.dream.com.party.service.PartyService;
 
 //Post에 관한 Controller Class를 만들어 낼것. 0524 과정
 @Controller
@@ -39,7 +40,8 @@ import www.dream.com.party.model.Party;
 public class PostController {
 	@Autowired
 	private PostService postService;
-
+	@Autowired // 10. Autowired @ 생성
+	private PartyService partyService; // 9. PartyClass와 이어줄거고
 	@Autowired
 	private BoardService boardService;
 	
@@ -66,6 +68,7 @@ public class PostController {
 		model.addAttribute("listPost", postService.getListByHashTag(curUser, boardId, child, userCriteria));
 		model.addAttribute("boardName", boardService.getBoard(boardId).getName());
 		model.addAttribute("boardList", boardService.getList());
+		model.addAttribute("party", partyService.getList(curUser));
 		userCriteria.setTotal(postService.getSearchTotalCount(boardId, child, userCriteria));
 		// model.addAttribute("pagination", fromUser);
 		// return 구문은 이제 없어졌다. void 형식으로 바뀌었기에 06.07
@@ -84,6 +87,7 @@ public class PostController {
 			model.addAttribute("userId", curUser.getUserId());
 			model.addAttribute("descrim", curUser.getDescrim());
 		}
+		model.addAttribute("party", partyService.getList(curUser));
 		model.addAttribute("childBoardList", boardService.getChildBoardList(4));
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("child", child);
@@ -106,13 +110,19 @@ public class PostController {
 
 	@GetMapping(value = "registerPost") // LCRUD 에서 Create 부분
 	@PreAuthorize("isAuthenticated()") // 현재 사용자가 로그인 처리 했습니까?
-	public void registerPost(@RequestParam("boardId") int boardId, @RequestParam("child") int child, Model model) {
+	public void registerPost(@RequestParam("boardId") int boardId, @RequestParam("child") int child, Model model, @AuthenticationPrincipal Principal principal) {
+		Party curUser = null;
+		if (principal != null) {
+			UsernamePasswordAuthenticationToken upat = (UsernamePasswordAuthenticationToken) principal;
+			CustomUser cu = (CustomUser) upat.getPrincipal();
+			curUser = cu.getCurUser();
+		}
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("child", child);
 		model.addAttribute("childBoardList", boardService.getChildBoardList(4));
 		model.addAttribute("boardName", boardService.getBoard(boardId).getName());
-
+		model.addAttribute("party", partyService.getList(curUser));
 	}
 
 	@PostMapping(value = "registerPost") // LCRUD 에서 Update 부분
@@ -235,6 +245,7 @@ public class PostController {
 			model.addAttribute("descrim", curUser.getDescrim());
 			model.addAttribute("userId", curUser.getUserId());
 		}
+		model.addAttribute("party", partyService.getList(curUser));
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("purchaseList", businessService.findAllPurchase());
 	}

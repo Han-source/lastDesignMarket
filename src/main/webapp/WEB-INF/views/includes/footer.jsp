@@ -87,7 +87,18 @@
 
 
 <script type="text/javascript">
-
+if(${party != null}){
+	if(${party[0].point} <= 1000){
+		$('#tier').html("반갑습니다 ${party[0].name}(평민) 님");
+		console.log("반갑습니다 ${party[0].name}(평민) 님");
+	}else if(${party[0].point} > 1000 && ${party[0].point} <= 5000){
+		$('#tier').html("반갑습니다 ${party[0].name}(상인) 님");
+	}else if(${party[0].point} > 5000 && ${party[0].point} <= 15000){
+		$('#tier').html("반갑습니다 ${party[0].name}(귀족) 님");
+	}else {
+		$('#tier').html("반갑습니다 ${party[0].name}(왕족) 님");
+	}
+}
     function chatBoxFunction() {
        // 로그인한 사용자 변수로 받기
        var userID = "${userId}"

@@ -9,8 +9,8 @@
 <div class="container-fluid">
 <p>
    <!-- DataTales Example -->
-   <div class="card shadow mb-4">
-      <div class="card-body" style="margin-left: 250px; margin-right: 250px; background-color: #F5F5F5;">
+   <div>
+      <div style="margin-left: 250px; margin-right: 250px; background-color: #F5F5F5;">
       <c:choose>
        <c:when test="${child == 5}">
        <h3> 직접거래 방식입니다. </h3>

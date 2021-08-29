@@ -10,13 +10,13 @@
 <!-- 여긴 중요한게, 객체를 만들어주는 부분이다. 제목을 넣는 부분 -->
 </div>
 
-<div class="form-group">
+<div class="form-group" style="padding-left: 1%; padding-right: 1%;">
    <label>제목</label>  <input id="title"  name="title" value="${post.title}" maxlength='30' onkeydown="validationTitle1()" class="form-control"  autofocus  readonly/>
    <section class="validationTitle" style="color: #F6BB43;"></section>
    <p id="title_cnt" align="right">(0 / 30)</p>
 </div>
 
-<div class="form-group">
+<div class="form-group" style="padding-left: 1%; padding-right: 1%;">
    <label>내용</label>
    <textarea id="txaContent" name="content"  maxlength='4000' class="form-control" rows="3"  readonly >${post.content}</textarea>
    <p id="content_cnt" align="right">(0 / 4000)</p>
@@ -24,7 +24,7 @@
    <!-- rows: 몇줄까지 화면에 보이게 할건지 -->
 </div>
 
-<div class="form-group">
+<div class="form-group" style="padding-left: 1%; padding-right: 1%;">
    <c:choose>
         <c:when test="${negoBuyer eq null}"> 
             <label>가격</label> <input type="text" id="price" name="productPrice" value="${product.productPrice}"  class="form-control"   readonly />

@@ -29,7 +29,7 @@
     			<hr>
     			 <div class="form-group">
                     <div class="divInline"  style="margin-right: 10%;"><label>등급</label></div>
-                    <div class="divInline"><span class="spanLabel" id="tier"></span></div>
+                    <div class="divInline"><span class="spanLabel" id="tierMaster"></span></div>
                 </div>
     			<hr>
 				
@@ -75,17 +75,13 @@
     
    <script>
    if(${party[0].point} <= 1000){
-   $('#tier').html("시민");
-   
+   		$('#tierMaster').html("평민");
    }else if(${party[0].point} > 1000 && ${party[0].point} <= 5000){
-   $('#tier').html("상인");
-	   
+	    $('#tierMaster').html("상인");
    }else if(${party[0].point} > 5000 && ${party[0].point} <= 15000){
-   $('#tier').html("귀족");
-	   
+   		$('#tierMaster').html("귀족");
    }else {
-   $('#tier').html("왕족");
-	   
+	    $('#tierMaster').html("왕족");
    }
    
    </script>

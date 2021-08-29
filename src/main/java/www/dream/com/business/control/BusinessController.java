@@ -65,8 +65,7 @@ public class BusinessController {
 			model.addAttribute("userId", curUser.getUserId());
 			model.addAttribute("descrim", curUser.getDescrim());
 		}
-		// model.addAttribute("listPost", postService.getListByHashTag(curUser, boardId,
-		// child, userCriteria));
+		model.addAttribute("party", partyService.getList(curUser));
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("child", child);
 		model.addAttribute("boardName", boardService.getBoard(boardId).getName());
@@ -86,6 +85,7 @@ public class BusinessController {
 			model.addAttribute("userId", curUser.getUserId());
 			model.addAttribute("descrim", curUser.getDescrim());
 		}
+		model.addAttribute("party", partyService.getList(curUser));
 		model.addAttribute("boardId", 4);
 		model.addAttribute("boardName", boardService.getBoard(4).getName());
 		model.addAttribute("boardList", boardService.getList());
@@ -110,6 +110,7 @@ public class BusinessController {
 			model.addAttribute("negoBuyer",
 					businessService.findNegoPriceByBuyerWithProductId(productId, newProductCondition));
 		}
+		model.addAttribute("party", partyService.getList(curUser));
 		model.addAttribute("boardId", 4);
 		model.addAttribute("boardName", boardService.getBoard(4).getName());
 		model.addAttribute("boardList", boardService.getList());
@@ -131,6 +132,7 @@ public class BusinessController {
 	         model.addAttribute("userId", curUser.getUserId());
 	         model.addAttribute("descrim", curUser.getDescrim());
 	      }
+	      model.addAttribute("party", partyService.getList(curUser));
 	      model.addAttribute("boardId", 4);
 	      model.addAttribute("boardName", boardService.getBoard(4).getName());
 	      model.addAttribute("boardList", boardService.getList());
@@ -171,6 +173,7 @@ public class BusinessController {
 					businessService.findShoppingCartByUserIdAndProductId(curUser.getUserId(), productId));
 			model.addAttribute("descrim", curUser.getDescrim());
 		}
+		model.addAttribute("party", partyService.getList(curUser));
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("childBoardList", boardService.getChildBoardList(4));
 		model.addAttribute("post", replyService.findProductById(productId, child));
@@ -221,12 +224,18 @@ public class BusinessController {
 
 	@GetMapping(value = "registerProduct") // LCRUD 에서 Create 부분
 	@PreAuthorize("isAuthenticated()") // 현재 사용자가 로그인 처리 했습니까?
-	public void registerPost(@RequestParam("boardId") int boardId, @RequestParam("child") int child, Model model,
+	public void registerPost(@RequestParam("boardId") int boardId, @RequestParam("child") int child, Model model,@AuthenticationPrincipal Principal principal,
 			final TradeConditionVO tradeCondition) {
 		if (tradeCondition.getAuctionEndDate() == null) {
 			tradeCondition.setAuctionEndDate(LocalDateTime.now());
-			
 		}
+		Party curUser = null;
+		if (principal != null) {
+			UsernamePasswordAuthenticationToken upat = (UsernamePasswordAuthenticationToken) principal;
+			CustomUser cu = (CustomUser) upat.getPrincipal();
+			curUser = cu.getCurUser();
+		}
+		model.addAttribute("party", partyService.getList(curUser));
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("child", child);
 		model.addAttribute("boardId", boardId);
@@ -287,9 +296,10 @@ public class BusinessController {
 					businessService.findNegoPriceByBuyerWithProductId(productId, newProductCondition));
 			model.addAttribute("buyerId", newProductCondition.getBuyerId());
 			model.addAttribute("descrim", curUser.getDescrim());
-			
+			model.addAttribute("party", partyService.getList(curUser));
 			
 		}
+		model.addAttribute("childBoardList", boardService.getChildBoardList(4));
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("post", replyService.findProductPurchaseRepresentById(productId, child));
 		model.addAttribute("product", businessService.findPriceById(productId));
@@ -322,6 +332,7 @@ public class BusinessController {
 			model.addAttribute("buyerId", newProductCondition.getBuyerId());
 			model.addAttribute("descrim", curUser.getDescrim());
 		}
+		model.addAttribute("party", partyService.getList(curUser));
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("post", replyService.findProductById(productId, child));
 		model.addAttribute("product", businessService.findPriceById(productId));

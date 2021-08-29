@@ -221,6 +221,7 @@ public class PartyController implements AuthenticationSuccessHandler, AccessDeni
 			model.addAttribute("partyId", curUser.getUserId());
 			model.addAttribute("childBoardList", boardService.getChildBoardList(4));
 			model.addAttribute("shopCart", postService.findProductShoppingCart(curUser.getUserId()));
+			model.addAttribute("party", partyService.getList(curUser));
 		}
 	}
 	

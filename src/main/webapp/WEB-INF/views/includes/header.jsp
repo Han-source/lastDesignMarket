@@ -44,6 +44,9 @@
 
 <!-- Css Styles  end-->
 </head>
+<sec:authorize access="isAuthenticated()">
+      <p id="tier" style="float: right; margin-right: 3%;"></p>
+</sec:authorize>
 <header class="header-section">
    <sec:authorize access="isAnonymous()">
       <div class="logoutt" style="height: 100%;">
@@ -53,7 +56,6 @@
          </div>
       </sec:authorize>
       <sec:authorize access="isAuthenticated()">
-      <p style="float: right;"> 안녕하세요 시민 ㅁㅁㅁ 님! </p> 
       
       <div class="logoutt" style="height: 100%;">
       <div>
